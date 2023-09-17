@@ -54,11 +54,6 @@ public class DatabaseConnection {
             }
         }
     }
-     public static void closeAllResources(){
-        closeResultSet();
-        closeStatement();
-        closeConnection();
-     }
 
     private static Properties loadProperties() {
         try (FileInputStream fs = new FileInputStream("/home/robert/Projects/databases-training-projects/courseJDBC2/src/main/resources/db.properties")) {
