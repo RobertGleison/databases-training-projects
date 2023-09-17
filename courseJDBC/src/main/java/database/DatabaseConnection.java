@@ -37,7 +37,7 @@ public class DatabaseConnection {
     }
 
     private static Properties loadProperties() {
-        try (FileInputStream fs = new FileInputStream("/home/robert/Projects/databases-training-projects/courseJDBC/src/main/resources/db.properties")) {
+        try (FileInputStream fs = new FileInputStream("src/main/resources/db.properties")) {
             Properties props = new Properties();
             props.load(fs);
             return props;
