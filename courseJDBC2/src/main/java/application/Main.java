@@ -1,5 +1,6 @@
 package application;
 
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import database.DatabaseConnection;
 
 import java.sql.*;
@@ -52,6 +53,18 @@ public class Main {
 
 
 //Update data from the database:
+//        try (Connection connection = DatabaseConnection.getConnection();
+//             PreparedStatement st = connection.prepareStatement(
+//                     "UPDATE seller SET BaseSalary = BaseSalary + ?"
+//                             + "WHERE (DepartmentID = ?)");
+//            ) {
+//            st.setDouble(1, 5000.0);
+//            st.setInt(2, 2);
+//            int rowsAffected = st.executeUpdate();
+//            System.out.println("Done! Rows affected; " + rowsAffected);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
 
 //Delete data from the database:
