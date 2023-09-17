@@ -68,7 +68,15 @@ public class Main {
 
 
 //Delete data from the database:
-
-
+//        try (Connection connection = DatabaseConnection.getConnection();
+//             PreparedStatement st = connection.prepareStatement(
+//                     "DELETE FROM department WHERE id=?");
+//        ) {
+//            st.setInt(1,2);
+//            int rowsAffected = st.executeUpdate();
+//            System.out.println("Done! Rows affected; " + rowsAffected);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 }
