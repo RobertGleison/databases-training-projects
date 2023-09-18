@@ -19,12 +19,10 @@ public class Department implements Serializable {
         return id;
     }
 
+    public void setId(Integer id) {this.id = id; }
+
     public String getName() {
         return name;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public void setName(String name) {

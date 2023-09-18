@@ -1,14 +1,21 @@
 package application;
 
+import database.DatabaseConnection;
+import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
+import model.dao.impl.DepartmentDaoJDBC;
 import model.entities.Department;
 import model.entities.Seller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Department department = new Department(1, "Marketing");
-        Seller seller = new Seller(1, "Robert", "robert@email", LocalDate.now(), 3000.0, department);
-        System.out.println(seller);
+        DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
+        List<Department> list = departmentDao.findAll();
+        list.forEach(System.out::println);
+
+        DatabaseConnection.closeConnection();
     }
 }

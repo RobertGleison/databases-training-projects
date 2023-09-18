@@ -22,21 +22,18 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void insert(Seller seller) {
-        PreparedStatement st = null;
+        PreparedStatement st;
         try {
             st = connection.prepareStatement(
                     "iNSERT INTO seller "
                             + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
                             + "VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1, seller.getName());
-            st.setString(1, seller.getEmail());
-            //I have to fix this date problem
-            st.setDate(1, new java.sql.Date(seller.getBirthDate().get());
-            st.setDouble(1, seller.getBaseSalary());
-            st.setInt(1, seller.getDepartment().getId());
-
+            st.setString(2, seller.getEmail());
+            st.setDate(3, new java.sql.Date(seller.getBirthDate().getTime()));
+            st.setDouble(4, seller.getBaseSalary());
+            st.setInt(5, seller.getDepartment().getId());
             int rowsAffected = st.executeUpdate();
-
             if (rowsAffected > 0) {
                 ResultSet rs = st.getGeneratedKeys();
                 if (rs.next()) {
@@ -54,19 +51,17 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void update(Seller seller) {
-        PreparedStatement st = null;
+        PreparedStatement st;
         try {
             st = connection.prepareStatement(
                     "UPDATE seller SET Name=?, Email=?,BirthDate=?,BaseSalary=?,DepartmentId=? "
                             + "WHERE Id = ?");
             st.setString(1, seller.getName());
             st.setString(1, seller.getEmail());
-            //I have to fix this date problem
-            st.setDate(1, new java.sql.Date(seller.getBirthDate().get());
+            st.setDate(1, new java.sql.Date(seller.getBirthDate().getTime()));
             st.setDouble(1, seller.getBaseSalary());
             st.setInt(1, seller.getDepartment().getId());
             st.setInt(6, seller.getId());
-
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e.getMessage());
@@ -77,10 +72,10 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void deleteById(Integer id) {
-        PreparedStatement st = null;
+        PreparedStatement st;
         try {
-            st = connection.prepareStatement( "DELETE FROM seller WHERE id = ?");
-            st.setInt(1,id);
+            st = connection.prepareStatement("DELETE FROM seller WHERE id = ?");
+            st.setInt(1, id);
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e.getMessage());
@@ -91,8 +86,8 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public Seller findById(Integer id) {
-        PreparedStatement st = null;
-        ResultSet rs = null;
+        PreparedStatement st;
+        ResultSet rs;
         try {
             st = connection.prepareStatement(
                     "SELECT seller.*, department.Name as DepName "
@@ -103,8 +98,7 @@ public class SellerDaoJDBC implements SellerDao {
             rs = st.executeQuery();
             if (rs.next()) {
                 Department dep = instatiateDepartment(rs);
-                Seller sel = instantiateSeller(rs, dep);
-                return sel;
+                return instantiateSeller(rs, dep);
             }
         } catch (SQLException e) {
             throw new DBException(e.getMessage());
@@ -121,7 +115,7 @@ public class SellerDaoJDBC implements SellerDao {
         sel.setName(rs.getString("Name"));
         sel.setEmail(rs.getString("Email"));
         sel.setBaseSalary(rs.getDouble("BaseSalary"));
-        sel.setBirthDate(rs.getDate("BirthDate").toLocalDate());
+        sel.setBirthDate(rs.getDate("BirthDate"));
         sel.setDepartment(dep);
         return sel;
     }
@@ -135,8 +129,8 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public List<Seller> findAll() {
-        PreparedStatement st = null;
-        ResultSet rs = null;
+        PreparedStatement st;
+        ResultSet rs;
         try {
             st = connection.prepareStatement(
                     "SELECT seller.*,department.Name as DepName "
@@ -167,8 +161,8 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public List<Seller> findByDepartment(Department department) {
-        PreparedStatement st = null;
-        ResultSet rs = null;
+        PreparedStatement st;
+        ResultSet rs;
         try {
             st = connection.prepareStatement(
                     "SELECT seller.*,department.Name as DepName "
