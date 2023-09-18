@@ -6,10 +6,7 @@ import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,17 +22,71 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void insert(Seller seller) {
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement(
+                    "iNSERT INTO seller "
+                            + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+                            + "VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, seller.getName());
+            st.setString(1, seller.getEmail());
+            //I have to fix this date problem
+            st.setDate(1, new java.sql.Date(seller.getBirthDate().get());
+            st.setDouble(1, seller.getBaseSalary());
+            st.setInt(1, seller.getDepartment().getId());
 
+            int rowsAffected = st.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    seller.setId(id);
+                }
+                DatabaseConnection.closeResultSet();
+            } else throw new DBException("No rows affected!");
+        } catch (SQLException e) {
+            throw new DBException(e.getMessage());
+        } finally {
+            DatabaseConnection.closeStatement();
+        }
     }
 
     @Override
     public void update(Seller seller) {
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement(
+                    "UPDATE seller SET Name=?, Email=?,BirthDate=?,BaseSalary=?,DepartmentId=? "
+                            + "WHERE Id = ?");
+            st.setString(1, seller.getName());
+            st.setString(1, seller.getEmail());
+            //I have to fix this date problem
+            st.setDate(1, new java.sql.Date(seller.getBirthDate().get());
+            st.setDouble(1, seller.getBaseSalary());
+            st.setInt(1, seller.getDepartment().getId());
+            st.setInt(6, seller.getId());
 
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DBException(e.getMessage());
+        } finally {
+            DatabaseConnection.closeStatement();
+        }
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement( "DELETE FROM seller WHERE id = ?");
+            st.setInt(1,id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DBException(e.getMessage());
+        } finally {
+            DatabaseConnection.closeStatement();
+        }
     }
 
     @Override
@@ -113,7 +164,6 @@ public class SellerDaoJDBC implements SellerDao {
             DatabaseConnection.closeResultSet();
         }
     }
-
 
     @Override
     public List<Seller> findByDepartment(Department department) {
