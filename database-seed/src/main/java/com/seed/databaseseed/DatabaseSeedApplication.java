@@ -9,18 +9,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
-//@SpringBootApplication
+@SpringBootApplication
 public class DatabaseSeedApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DatabaseSeedApplication.class, args);
-		String caminhoArquivoCSV = "/home/robert/Projects/databases-training-projects/sharkTankDataSet";
+		String path = "/home/robert/Projects/databases-training-projects/sharkTankDataSet";
 
-		try (CSVReader reader = new CSVReader(new FileReader(caminhoArquivoCSV))) {
-			List<String[]> linhas = reader.readAll();
+		try (CSVReader reader = new CSVReader(new FileReader(path))) {
+			List<String[]> lines = reader.readAll();
 
-			for (String[] linha : linhas) {
-				for (String dado : linha) {
+			for (String[] line : lines) {
+				for (String dado : line) {
 					System.out.print(dado + " ");
 				}
 				System.out.println();
