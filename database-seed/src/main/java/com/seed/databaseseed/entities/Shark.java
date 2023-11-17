@@ -1,34 +1,30 @@
 package com.seed.databaseseed.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Data;
-
+import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-
 public class Shark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    @Column(name = "shark_id")
+    private Integer id;
     public String nome;
+    @ManyToMany(mappedBy = "sharks")
     private Set<Episodio> episodios = new HashSet<>();
     List<Investimento> investimentos = new ArrayList<>();
 
     public Shark(Integer id, String nome) {
-        Id = id;
+        this.id = id;
         this.nome = nome;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNome() {
@@ -71,7 +67,7 @@ public class Shark {
     @Override
     public String toString() {
         return "Shark{" +
-                "Id=" + Id +
+                "Id=" + id +
                 ", nome='" + nome + '\'' +
                 ", episodios=" + episodios +
                 ", investimentos=" + investimentos +

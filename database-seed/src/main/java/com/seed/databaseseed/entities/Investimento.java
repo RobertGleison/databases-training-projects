@@ -1,10 +1,17 @@
 package com.seed.databaseseed.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
 import java.util.Objects;
 
+@Entity
 public class Investimento {
+    @EmbeddedId
     private SharkProjetoPK id;
+    @Column(name = "valor_do_investimento")
     private Double valorDoInvestimento;
+    @Column(name = "porcentagem_vendida_do_projeto")
     private Double porcentagemVendidaDoProjeto;
 
     public Investimento(Shark shark, Projeto projeto, Double valorDoInvestimento, Double porcentagemVendidaDoProjeto) {

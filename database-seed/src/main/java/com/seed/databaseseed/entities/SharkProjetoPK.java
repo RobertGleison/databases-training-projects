@@ -1,9 +1,17 @@
 package com.seed.databaseseed.entities;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.util.Objects;
 
+@Embeddable
 public class SharkProjetoPK {
+    @ManyToOne
+    @JoinColumn(name = "shark_id")
     private Shark shark;
+    @ManyToOne
+    @JoinColumn(name = "projeto_id")
     private Projeto projeto;
 
     public Shark getShark() {

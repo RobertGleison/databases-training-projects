@@ -1,10 +1,7 @@
 package com.seed.databaseseed.entities;
 
 import jakarta.persistence.*;
-
-
 import java.util.*;
-
 
 @Entity
 public class Projeto {
@@ -20,7 +17,10 @@ public class Projeto {
     private String categoria;
     private String descricao;
     @Column(name = "numero_do_episodio")
+    @ManyToOne
+    @JoinColumn(name = "episodio_id")
     private Episodio episodio;
+    @OneToMany(mappedBy = "projeto")
     private Set<Empreendedor> empreendedores = new HashSet<>();
     private List<Investimento> investimentos = new ArrayList<>();
 

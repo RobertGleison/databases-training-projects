@@ -1,23 +1,23 @@
 package com.seed.databaseseed.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 
 @Entity
 public class Episodio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "numero_do_episodio")
     private Integer numero;
     private Integer temporada;
+    @ManyToMany
+    @JoinTable(name = "episodio_shark",
+            joinColumns = @JoinColumn(name = "shark_id"),
+            inverseJoinColumns = @JoinColumn(name = "numero_do_episodio"))
     private Set<Shark> sharks = new HashSet<>();
+    @OneToMany(mappedBy = "episodio")
     private Set<Projeto> projetos = new HashSet<>();
 
     public Episodio(Integer numero, Integer temporada) {

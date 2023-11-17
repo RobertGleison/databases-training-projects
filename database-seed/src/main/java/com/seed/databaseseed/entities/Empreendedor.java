@@ -1,9 +1,7 @@
 package com.seed.databaseseed.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Objects;
-
 
 @Entity
 public class Empreendedor {
@@ -14,6 +12,8 @@ public class Empreendedor {
     private String nome;
     private String genero;
     @Column(name = "projeto_id")
+    @ManyToOne
+    @JoinColumn(name = "projeto_id")
     private Projeto projeto;
 
     public Empreendedor(Integer id, String nome, String genero, Projeto projeto) {
