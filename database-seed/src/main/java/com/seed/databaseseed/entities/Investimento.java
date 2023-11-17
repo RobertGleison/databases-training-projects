@@ -1,10 +1,8 @@
 package com.seed.databaseseed.entities;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -26,30 +24,23 @@ public class Investimento implements Serializable {
         this.valorDoInvestimento = valorDoInvestimento;
         this.porcentagemVendidaDoProjeto = porcentagemVendidaDoProjeto;
     }
+
     public Double getValorDoInvestimento() {
         return valorDoInvestimento;
     }
+
     public void setValorDoInvestimento(Double valorDoInvestimento) {
         this.valorDoInvestimento = valorDoInvestimento;
     }
+
     public Double getPorcentagemVendidaDoProjeto() {
         return porcentagemVendidaDoProjeto;
     }
+
     public void setPorcentagemVendidaDoProjeto(Double porcentagemVendidaDoProjeto) {
         this.porcentagemVendidaDoProjeto = porcentagemVendidaDoProjeto;
     }
-//    public Shark getShark() {
-//        return id.getShark();
-//    }
-//    public void setShark(Shark shark) {
-//        id.setShark(shark);
-//    }
-//    public Projeto getProjeto() {
-//        return id.getProjeto();
-//    }
-//    public void setProjeto(Projeto projeto) {
-//        id.setProjeto(projeto);
-//    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,10 +48,12 @@ public class Investimento implements Serializable {
         Investimento that = (Investimento) o;
         return Objects.equals(getValorDoInvestimento(), that.getValorDoInvestimento());
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(getValorDoInvestimento());
     }
+
     @Override
     public String toString() {
         return "Investimento{" +

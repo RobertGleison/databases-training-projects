@@ -9,4 +9,8 @@
 //
 //    @Autowired
 //    private EmpreendedorRepository repository;
+//
+//    public void insert(){
+//        repository.save();
+//    }
 //}

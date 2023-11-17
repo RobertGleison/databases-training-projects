@@ -15,6 +15,7 @@ public class Projeto {
     @Column(name = "valor_de_mercado")
     private Double valorDeMercado;
     private String categoria;
+    @Column(columnDefinition = "TEXT")
     private String descricao;
     @ManyToOne
     @JoinColumn(name = "numero_do_episodio")
