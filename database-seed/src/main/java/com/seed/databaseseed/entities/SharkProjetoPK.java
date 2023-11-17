@@ -4,14 +4,16 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+
+import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class SharkProjetoPK {
-    @ManyToOne(fetch= FetchType.LAZY)
+public class SharkProjetoPK implements Serializable {
+    @ManyToOne
     @JoinColumn(name = "shark_id")
     private Shark shark;
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "projeto_id")
     private Projeto projeto;
 
@@ -38,7 +40,6 @@ public class SharkProjetoPK {
         SharkProjetoPK that = (SharkProjetoPK) o;
         return Objects.equals(getShark(), that.getShark()) && Objects.equals(getProjeto(), that.getProjeto());
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(getShark(), getProjeto());

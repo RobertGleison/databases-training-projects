@@ -12,8 +12,8 @@ public class Shark {
     public String nome;
     @ManyToMany(mappedBy = "sharks")
     private Set<Episodio> episodios = new HashSet<>();
-    @OneToMany
-    List<Investimento> investimentos = new ArrayList<>();
+    @OneToMany(mappedBy = "id.shark")
+    private List<Investimento> investimentos = new ArrayList<>();
 
     public Shark(Integer id, String nome) {
         this.id = id;
@@ -47,14 +47,6 @@ public class Shark {
         this.episodios = episodios;
     }
 
-    public List<Investimento> getInvestimentos() {
-        return investimentos;
-    }
-
-    public void setInvestimentos(List<Investimento> investimentos) {
-        this.investimentos = investimentos;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,7 +66,6 @@ public class Shark {
                 "Id=" + id +
                 ", nome='" + nome + '\'' +
                 ", episodios=" + episodios +
-//                ", investimentos=" + investimentos +
                 '}';
     }
 }

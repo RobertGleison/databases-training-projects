@@ -78,7 +78,7 @@ public class Episodio {
         return "Episodio{" +
                 "numero=" + numero +
                 ", temporada=" + temporada +
-//                ", sharks=" + sharks +
+                ", sharks=" + sharks +
                 ", projetos=" + projetos +
                 '}';
     }

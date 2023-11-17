@@ -21,7 +21,7 @@ public class Projeto {
     private Episodio episodio;
     @OneToMany(mappedBy = "projeto")
     private Set<Empreendedor> empreendedores = new HashSet<>();
-    @OneToMany
+    @OneToMany(mappedBy = "id.projeto")
     private List<Investimento> investimentos = new ArrayList<>();
 
     public Projeto(Integer id, String nome, String localidade, String website, Double valorDeMercado, String categoria, String descricao,Episodio episodio) {
@@ -101,22 +101,14 @@ public class Projeto {
     public void setEpisodio(Episodio episodio) {
         this.episodio = episodio;
     }
-//
-//    public Set<Empreendedor> getEmpreendedores() {
-//        return empreendedores;
-//    }
-//
-//    public void setEmpreendedores(Set<Empreendedor> empreendedores) {
-//        this.empreendedores = empreendedores;
-//    }
-//
-//    public List<Investimento> getInvestimentos() {
-//        return investimentos;
-//    }
-//
-//    public void setInvestimentos(List<Investimento> investimentos) {
-//        this.investimentos = investimentos;
-//    }
+
+    public Set<Empreendedor> getEmpreendedores() {
+        return empreendedores;
+    }
+
+    public void setEmpreendedores(Set<Empreendedor> empreendedores) {
+        this.empreendedores = empreendedores;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -131,19 +123,18 @@ public class Projeto {
         return Objects.hash(id);
     }
 
-//    @Override
-//    public String toString() {
-//        return "Projeto{" +
-//                "id=" + id +
-//                ", nome='" + nome + '\'' +
-//                ", localidade='" + localidade + '\'' +
-//                ", website='" + website + '\'' +
-//                ", valorDeMercado=" + valorDeMercado +
-//                ", categoria='" + categoria + '\'' +
-//                ", descricao='" + descricao + '\'' +
-//                ", episodio=" + episodio +
-//                ", empreendedores=" + empreendedores +
-//                ", investimentos=" + investimentos +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Projeto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", localidade='" + localidade + '\'' +
+                ", website='" + website + '\'' +
+                ", valorDeMercado=" + valorDeMercado +
+                ", categoria='" + categoria + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", episodio=" + episodio +
+                ", empreendedores=" + empreendedores +
+                '}';
+    }
 }
