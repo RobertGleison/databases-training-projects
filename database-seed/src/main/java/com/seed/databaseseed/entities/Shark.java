@@ -12,11 +12,15 @@ public class Shark {
     public String nome;
     @ManyToMany(mappedBy = "sharks")
     private Set<Episodio> episodios = new HashSet<>();
+    @OneToMany
     List<Investimento> investimentos = new ArrayList<>();
 
     public Shark(Integer id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public Shark() {
     }
 
     public Integer getId() {
@@ -70,7 +74,7 @@ public class Shark {
                 "Id=" + id +
                 ", nome='" + nome + '\'' +
                 ", episodios=" + episodios +
-                ", investimentos=" + investimentos +
+//                ", investimentos=" + investimentos +
                 '}';
     }
 }

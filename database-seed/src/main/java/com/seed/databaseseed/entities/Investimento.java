@@ -3,6 +3,9 @@ package com.seed.databaseseed.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.util.Objects;
 
 @Entity
@@ -13,6 +16,10 @@ public class Investimento {
     private Double valorDoInvestimento;
     @Column(name = "porcentagem_vendida_do_projeto")
     private Double porcentagemVendidaDoProjeto;
+
+
+    public Investimento() {
+    }
 
     public Investimento(Shark shark, Projeto projeto, Double valorDoInvestimento, Double porcentagemVendidaDoProjeto) {
         this.id.setProjeto(projeto);

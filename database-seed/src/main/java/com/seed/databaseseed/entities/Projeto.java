@@ -16,15 +16,15 @@ public class Projeto {
     private Double valorDeMercado;
     private String categoria;
     private String descricao;
-    @Column(name = "numero_do_episodio")
     @ManyToOne
-    @JoinColumn(name = "episodio_id")
+    @JoinColumn(name = "numero_do_episodio")
     private Episodio episodio;
     @OneToMany(mappedBy = "projeto")
     private Set<Empreendedor> empreendedores = new HashSet<>();
+    @OneToMany
     private List<Investimento> investimentos = new ArrayList<>();
 
-    public Projeto(Integer id, String nome, String localidade, String website, Double valorDeMercado, String categoria, String descricao, Episodio episodio) {
+    public Projeto(Integer id, String nome, String localidade, String website, Double valorDeMercado, String categoria, String descricao,Episodio episodio) {
         this.id = id;
         this.nome = nome;
         this.localidade = localidade;
@@ -33,6 +33,9 @@ public class Projeto {
         this.categoria = categoria;
         this.descricao = descricao;
         this.episodio = episodio;
+    }
+
+    public Projeto() {
     }
 
     public Integer getId() {
@@ -98,22 +101,22 @@ public class Projeto {
     public void setEpisodio(Episodio episodio) {
         this.episodio = episodio;
     }
-
-    public Set<Empreendedor> getEmpreendedores() {
-        return empreendedores;
-    }
-
-    public void setEmpreendedores(Set<Empreendedor> empreendedores) {
-        this.empreendedores = empreendedores;
-    }
-
-    public List<Investimento> getInvestimentos() {
-        return investimentos;
-    }
-
-    public void setInvestimentos(List<Investimento> investimentos) {
-        this.investimentos = investimentos;
-    }
+//
+//    public Set<Empreendedor> getEmpreendedores() {
+//        return empreendedores;
+//    }
+//
+//    public void setEmpreendedores(Set<Empreendedor> empreendedores) {
+//        this.empreendedores = empreendedores;
+//    }
+//
+//    public List<Investimento> getInvestimentos() {
+//        return investimentos;
+//    }
+//
+//    public void setInvestimentos(List<Investimento> investimentos) {
+//        this.investimentos = investimentos;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -128,19 +131,19 @@ public class Projeto {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Projeto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", localidade='" + localidade + '\'' +
-                ", website='" + website + '\'' +
-                ", valorDeMercado=" + valorDeMercado +
-                ", categoria='" + categoria + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", episodio=" + episodio +
-                ", empreendedores=" + empreendedores +
-                ", investimentos=" + investimentos +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Projeto{" +
+//                "id=" + id +
+//                ", nome='" + nome + '\'' +
+//                ", localidade='" + localidade + '\'' +
+//                ", website='" + website + '\'' +
+//                ", valorDeMercado=" + valorDeMercado +
+//                ", categoria='" + categoria + '\'' +
+//                ", descricao='" + descricao + '\'' +
+//                ", episodio=" + episodio +
+//                ", empreendedores=" + empreendedores +
+//                ", investimentos=" + investimentos +
+//                '}';
+//    }
 }

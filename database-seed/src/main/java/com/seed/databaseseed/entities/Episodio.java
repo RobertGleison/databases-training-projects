@@ -25,6 +25,9 @@ public class Episodio {
         this.temporada = temporada;
     }
 
+    public Episodio() {
+    }
+
     public Integer getNumero() {
         return numero;
     }
@@ -75,7 +78,7 @@ public class Episodio {
         return "Episodio{" +
                 "numero=" + numero +
                 ", temporada=" + temporada +
-                ", sharks=" + sharks +
+//                ", sharks=" + sharks +
                 ", projetos=" + projetos +
                 '}';
     }

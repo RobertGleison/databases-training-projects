@@ -11,7 +11,6 @@ public class Empreendedor {
     private Integer id;
     private String nome;
     private String genero;
-    @Column(name = "projeto_id")
     @ManyToOne
     @JoinColumn(name = "projeto_id")
     private Projeto projeto;
@@ -21,6 +20,9 @@ public class Empreendedor {
         this.nome = nome;
         this.genero = genero;
         this.projeto = projeto;
+    }
+
+    public Empreendedor() {
     }
 
     public Integer getId() {
