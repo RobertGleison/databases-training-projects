@@ -20,9 +20,9 @@ public class CsvProcessor {
         String description = values[5];
         String entrepeneurGender = values[6];
         String entrepeneurName = values[7];
-        if (entrepeneurName.contains(",") || entrepeneurName.contains(" and "))
-            entrepeneurNames = entrepeneurName.split(", | and ");
-        else entrepeneurName = values[7];
+        if (entrepeneurName.contains("_"))
+            entrepeneurNames = entrepeneurName.split("_");
+        else entrepeneurNames[0] = values[7];
         String website = values[8];
         Double askedValue = Double.parseDouble(values[9]);
         Boolean deal = (values[11].equals("1"));
