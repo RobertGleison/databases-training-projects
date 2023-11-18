@@ -31,44 +31,7 @@ public class CsvProcessor {
             if (Integer.parseInt(values[37]) == 1) sharks.add("Daymond John");
             if (Integer.parseInt(values[38]) == 1) sharks.add("Kevin O Leary");
         }
-        printResult(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurNames, website, askedValue, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark);
+        PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurNames, website, askedValue, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark, sharks);
+        System.out.println(p);
     }
-
-    public static void printResult(
-            Integer episode,
-            Integer season,
-            Integer picht,
-            String projectName,
-            String category,
-            String description,
-            String entrepeneurGender,
-            List<String> entrepeneurNames,
-            String website,
-            Double askedValue,
-            Boolean deal,
-            Double dealValue,
-            Double percentageOfProject,
-            Integer numberOfSharksInDeal,
-            Double percentageOfCompanyPerShark,
-            Double investmentAmountPerShark
-    ) {
-        System.out.print("Número de Episódio: " + episode);
-        System.out.print(", Temporada: " + season);
-        System.out.print(", Picht ID: " + picht);
-        System.out.print(", Project Name: " + projectName);
-        System.out.print(", Category: " + category);
-        System.out.print(", Description: " + description);
-        System.out.print(", Entrepreneur Gender: " + entrepeneurGender);
-        System.out.print(", Entrepreneur Name(s): " + entrepeneurNames);
-        System.out.print(", Website: " + website);
-        System.out.print(", Asked Value: " + askedValue);
-        System.out.print(", Deal: " + deal);
-        System.out.print(", Deal Value: " + dealValue);
-        System.out.print(", Percentage of Project: " + percentageOfProject);
-        System.out.print(", Number of Sharks in Deal: " + numberOfSharksInDeal);
-        System.out.print(", Percentage of Company per Shark: " + percentageOfCompanyPerShark);
-        System.out.print(", Investment Amount per Shark: " + investmentAmountPerShark);
-        System.out.println();
-    }
-
 }
