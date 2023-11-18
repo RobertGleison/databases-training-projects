@@ -1,44 +1,27 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class CsvProcessor {
-    public static void createVariables(String[] values) throws RuntimeException{
-        Double dealValue;
-        Double percentageOfProject;
-        Integer numberOfSharksInDeal;
-        Double percentageOfCompanyPerShark;
-        Double investmentAmountPerShark;
-        String[] entrepeneurNames = new String[3];
-        Set<String> sharks = new HashSet<>();
 
+    public static void createVariables(String[] values) throws RuntimeException {
         Integer season = Integer.parseInt(values[0]);
         Integer episode = Integer.parseInt(values[1]);
-        Integer pichts = Integer.parseInt(values[2]);
+        Integer picht = Integer.parseInt(values[2]);
         String projectName = values[3];
         String category = values[4];
         String description = values[5];
         String entrepeneurGender = values[6];
         String entrepeneurName = values[7];
-        if (entrepeneurName.contains("_"))
-            entrepeneurNames = entrepeneurName.split("_");
-        else entrepeneurNames[0] = values[7];
+        List<String> entrepeneurNames = new ArrayList<>(entrepeneurName.contains("_") ? Arrays.asList(entrepeneurName.split("_")) : Collections.singletonList(entrepeneurName));
         String website = values[8];
         Double askedValue = Double.parseDouble(values[9]);
         Boolean deal = (values[11].equals("1"));
-        if (deal) {
-            dealValue = Double.parseDouble(values[12]);
-            percentageOfProject = Double.parseDouble(values[13]);
-            numberOfSharksInDeal = Integer.parseInt(values[15]);
-            percentageOfCompanyPerShark = percentageOfProject / numberOfSharksInDeal;
-            investmentAmountPerShark = dealValue / numberOfSharksInDeal;
-        } else {
-            dealValue = null;
-            percentageOfProject = null;
-            numberOfSharksInDeal = null;
-            percentageOfCompanyPerShark = null;
-            investmentAmountPerShark = null;
-        }
+        Double dealValue = deal ? Double.parseDouble(values[12]) : null;
+        Double percentageOfProject = deal ? Double.parseDouble(values[13]) : null;
+        Integer numberOfSharksInDeal = deal ? Integer.parseInt(values[15]) : null;
+        Double percentageOfCompanyPerShark = deal ? percentageOfProject / numberOfSharksInDeal : null;
+        Double investmentAmountPerShark = deal ? dealValue / numberOfSharksInDeal : null;
+
+        Set<String> sharks = new HashSet<>();
         for (int i = 43; i < 50; i++) {
             if (!values[32].isEmpty()) sharks.add(values[32]);
             if (Integer.parseInt(values[33]) == 1) sharks.add("Barbara Corcoran");
@@ -48,15 +31,35 @@ public class CsvProcessor {
             if (Integer.parseInt(values[37]) == 1) sharks.add("Daymond John");
             if (Integer.parseInt(values[38]) == 1) sharks.add("Kevin O Leary");
         }
+        printResult(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurNames, website, askedValue, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark);
+    }
 
+    public static void printResult(
+            Integer episode,
+            Integer season,
+            Integer picht,
+            String projectName,
+            String category,
+            String description,
+            String entrepeneurGender,
+            List<String> entrepeneurNames,
+            String website,
+            Double askedValue,
+            Boolean deal,
+            Double dealValue,
+            Double percentageOfProject,
+            Integer numberOfSharksInDeal,
+            Double percentageOfCompanyPerShark,
+            Double investmentAmountPerShark
+    ) {
         System.out.print("Número de Episódio: " + episode);
         System.out.print(", Temporada: " + season);
-        System.out.print(", Pichts ID: " + pichts);
+        System.out.print(", Picht ID: " + picht);
         System.out.print(", Project Name: " + projectName);
         System.out.print(", Category: " + category);
         System.out.print(", Description: " + description);
         System.out.print(", Entrepreneur Gender: " + entrepeneurGender);
-        System.out.print(", Entrepreneur Name(s): " + Arrays.toString(entrepeneurNames));
+        System.out.print(", Entrepreneur Name(s): " + entrepeneurNames);
         System.out.print(", Website: " + website);
         System.out.print(", Asked Value: " + askedValue);
         System.out.print(", Deal: " + deal);
