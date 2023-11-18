@@ -1,5 +1,6 @@
 package com.seed.databaseseed;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,6 +13,7 @@ public class DatabaseSeedApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DatabaseSeedApplication.class, args);
+
 		String csvFilePath = "/home/robert/Projects/databases-training-projects/shark-tank/sharkTankDataSet.csv";
 //        Scanner sc = new Scanner(System.in);
 //        String csvFilePath = sc.nextLine();

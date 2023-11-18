@@ -1,11 +1,17 @@
 package com.seed.databaseseed;
 
 import com.seed.databaseseed.entities.PitchData;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class CsvProcessor {
-    public static List<PitchData> pitches = new ArrayList<>();
+    private static final List<PitchData> pitches = new ArrayList<>();
+
+    public static List<PitchData> getPitches() {
+        return pitches;
+    }
 
     public static void createVariables(String[] values) throws RuntimeException {
         Integer season = Integer.parseInt(values[0]);
