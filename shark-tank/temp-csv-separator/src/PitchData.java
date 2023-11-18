@@ -23,7 +23,7 @@ public class PitchData {
 
     public PitchData() {
     }
-    //User builder?
+    //Use builder?
     public PitchData(Integer episode,
                      Integer season,
                      Integer picht,
