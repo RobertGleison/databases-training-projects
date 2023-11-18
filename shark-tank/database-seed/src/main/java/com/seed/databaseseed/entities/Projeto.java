@@ -10,7 +10,6 @@ public class Projeto {
     @Column(name = "projeto_id")
     private Integer id;
     private String nome;
-    private String localidade;
     private String website;
     @Column(name = "valor_de_mercado")
     private Double valorDeMercado;
@@ -25,10 +24,9 @@ public class Projeto {
     @OneToMany(mappedBy = "id.projeto")
     private List<Investimento> investimentos = new ArrayList<>();
 
-    public Projeto(Integer id, String nome, String localidade, String website, Double valorDeMercado, String categoria, String descricao,Episodio episodio) {
+    public Projeto(Integer id, String nome, String website, Double valorDeMercado, String categoria, String descricao,Episodio episodio) {
         this.id = id;
         this.nome = nome;
-        this.localidade = localidade;
         this.website = website;
         this.valorDeMercado = valorDeMercado;
         this.categoria = categoria;
@@ -53,14 +51,6 @@ public class Projeto {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getLocalidade() {
-        return localidade;
-    }
-
-    public void setLocalidade(String localidade) {
-        this.localidade = localidade;
     }
 
     public String getWebsite() {
@@ -129,7 +119,6 @@ public class Projeto {
         return "Projeto{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", localidade='" + localidade + '\'' +
                 ", website='" + website + '\'' +
                 ", valorDeMercado=" + valorDeMercado +
                 ", categoria='" + categoria + '\'' +
