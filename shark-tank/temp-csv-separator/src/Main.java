@@ -4,18 +4,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-
         String csvFilePath = "/home/robert/Projects/databases-training-projects/shark-tank/sharkTankDataSet.csv";
+//        Scanner sc = new Scanner(System.in);
+//        String csvFilePath = sc.nextLine();
         String line;
         boolean first = true;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
             while ((line = reader.readLine()) != null) {
-                //First line is column names
+                //First line is for column names
                 if (first) {
                     first = false;
                     continue;
@@ -23,16 +25,13 @@ public class Main {
                 String[] values = line.split(",");
                 try {
                     CsvProcessor.createVariables(values);
-                } catch (NumberFormatException e) {
-                    System.err.println("Erro ao converter: " + e.getMessage());
-                    e.getStackTrace();
-                    continue;
-                } catch (NullPointerException e) {
-                    System.out.println("oi");
+                } catch (NumberFormatException | NullPointerException e) {
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+//        sc.close();
     }
 }

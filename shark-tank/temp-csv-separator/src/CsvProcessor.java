@@ -2,9 +2,11 @@ import java.util.*;
 
 public class CsvProcessor {
 
+    public static List<PitchData> pitches = new ArrayList<>();
+
     public static void createVariables(String[] values) throws RuntimeException {
         Integer season = Integer.parseInt(values[0]);
-        Integer episode = Integer.parseInt(values[1]);
+        Integer episode = calculateGlobalEpisodeNumber(Integer.parseInt(values[1]), season);
         Integer picht = Integer.parseInt(values[2]);
         String projectName = values[3];
         String category = values[4];
@@ -32,6 +34,18 @@ public class CsvProcessor {
             if (Integer.parseInt(values[38]) == 1) sharks.add("Kevin O Leary");
         }
         PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurNames, website, askedValue, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark, sharks);
-        System.out.println(p);
+        pitches.add(p);
+        //        System.out.println(p);
+    }
+
+    private static Integer calculateGlobalEpisodeNumber(Integer episode, Integer season){
+//        Number of episodes of each season:
+//        1 = 15
+//        2 = 9
+//        3 =15
+        if(season == 1) return episode;
+        else if(season == 2) return episode + 14;
+        else if(season == 3) return episode + 23;
+        return episode + 38;
     }
 }
