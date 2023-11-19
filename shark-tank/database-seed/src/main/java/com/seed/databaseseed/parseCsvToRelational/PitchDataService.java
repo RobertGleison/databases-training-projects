@@ -2,9 +2,7 @@ package com.seed.databaseseed.parseCsvToRelational;
 
 import com.seed.databaseseed.entities.relationalModel.*;
 import com.seed.databaseseed.entities.PitchData;
-import com.seed.databaseseed.repositories.EpisodioRepository;
-import com.seed.databaseseed.repositories.ProjetoRepository;
-import com.seed.databaseseed.repositories.SharkRepository;
+import com.seed.databaseseed.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,11 @@ public class PitchDataService {
         return CsvProcessor.getPitches();
     }
 
+    @Autowired
+    private InvestimentoRepository investimentoRepository;
+
+    @Autowired
+    private EmpreendedorRepository empreendedorRepository;
 
     @Autowired
     private ProjetoRepository projetoRepository;
@@ -32,11 +35,29 @@ public class PitchDataService {
     public void managePitch() {
         List<PitchData> pitches = getAllPitches();
         for (PitchData p : pitches) {
-            Episodio episodio = insertEpisode(p.getSeason(), p.getEpisode(),p.getSharks());
+            Episodio episodio = insertEpisode(p.getSeason(), p.getEpisode(), p.getSharks());
             setEpisodeToShark(episodio);
-            Projeto projeto = insertProject(p.getPicht(), p.getProjectName(), p.getWebsite(),p.getValuation(),
-                                p.getCategory(), p.getDescription(),episodio, p.getEntrepeneurNames());
+            Projeto projeto = insertProject(p.getPicht(), p.getProjectName(), p.getWebsite(), p.getValuation(),
+                    p.getCategory(), p.getDescription(), episodio, p.getEntrepeneurNames());
             setProjectToEpisode(projeto, episodio);
+            setProjectToEntrepeneur(projeto);
+            List<Investimento> investimentos = insertInvestimento(projeto, p.getInvestors(), p.getInvestmentAmountPerShark(), p.getPercentageOfCompanyPerShark());
+        }
+    }
+
+    private List<Investimento> insertInvestimento(Projeto projeto, Set<Shark> investors, Double investmentAmountPerShark, Double percentageOfCompanyPerShark) {
+        List<Investimento> investimentos = new ArrayList<>();
+        for (Shark s : investors) {
+            investimentos.add(new Investimento(s, projeto, investmentAmountPerShark, percentageOfCompanyPerShark));
+        }
+        return investimentos;
+    }
+
+    private void setProjectToEntrepeneur(Projeto projeto) {
+        List<Empreendedor> empreendedores = projeto.getEmpreendedores();
+        for (Empreendedor emp : empreendedores) {
+            emp.setProjeto(projeto);
+
         }
     }
 
@@ -47,18 +68,19 @@ public class PitchDataService {
         return projeto;
     }
 
-    private void setProjectToEpisode(Projeto project, Episodio episode){
-            episode.addProject(project);
+    private void setProjectToEpisode(Projeto project, Episodio episode) {
+        episode.addProject(project);
     }
 
-    private void setEpisodeToShark(Episodio episode){
+    private void setEpisodeToShark(Episodio episode) {
         Set<Shark> sharksInEpisode = episode.getSharks();
-        for (Shark s : sharksInEpisode){
-           s.addEpisodio(episode);
+        for (Shark s : sharksInEpisode) {
+            s.addEpisodio(episode);
         }
 
     }
-    private Episodio insertEpisode(Integer season, Integer number, Set<Shark> sharks){
+
+    private Episodio insertEpisode(Integer season, Integer number, Set<Shark> sharks) {
         Episodio episodio = new Episodio(number, season);
         episodio.setSharks(insertSharks(sharks));
         return episodioRepository.save(episodio);
@@ -66,8 +88,8 @@ public class PitchDataService {
 
     private Set<Shark> insertSharks(Set<Shark> sharks) {
         Set<Shark> sharksToSave = new HashSet<>();
-        for (Shark s: sharks) {
-            if(!sharkRepository.existsById(s.getId())) sharksToSave.add(s);
+        for (Shark s : sharks) {
+            if (!sharkRepository.existsById(s.getId())) sharksToSave.add(s);
         }
         return new HashSet<>(sharkRepository.saveAll(sharksToSave));
     }

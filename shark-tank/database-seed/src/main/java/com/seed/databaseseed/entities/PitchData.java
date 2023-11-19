@@ -25,6 +25,7 @@ public class PitchData {
     private Double percentageOfCompanyPerShark;
     private Double investmentAmountPerShark;
     private Set<Shark> sharks;
+    private Set<Shark> investors;
 
     public PitchData() {
     }
@@ -45,7 +46,9 @@ public class PitchData {
                      Double percentageOfProject,
                      Integer numberOfSharksInDeal,
                      Double percentageOfCompanyPerShark,
-                     Double investmentAmountPerShark, Set<Shark> sharks) {
+                     Double investmentAmountPerShark,
+                     Set<Shark> sharks,
+                     Set<Shark> investors) {
         this.episode = episode;
         this.season = season;
         this.picht = picht;
@@ -63,6 +66,7 @@ public class PitchData {
         this.percentageOfCompanyPerShark = percentageOfCompanyPerShark;
         this.investmentAmountPerShark = investmentAmountPerShark;
         this.sharks = sharks;
+        this.investors = investors;
     }
 
     public Integer getEpisode() {
@@ -191,6 +195,14 @@ public class PitchData {
 
     public void setInvestmentAmountPerShark(Double investmentAmountPerShark) {
         this.investmentAmountPerShark = investmentAmountPerShark;
+    }
+
+    public Set<Shark> getInvestors() {
+        return investors;
+    }
+
+    public void setInvestors(Set<Shark> investors) {
+        this.investors = investors;
     }
 
     public Set<Shark> getSharks() {

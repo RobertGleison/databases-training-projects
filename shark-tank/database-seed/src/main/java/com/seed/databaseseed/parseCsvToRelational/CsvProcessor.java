@@ -4,7 +4,7 @@ import com.seed.databaseseed.entities.PitchData;
 import com.seed.databaseseed.entities.relationalModel.Empreendedor;
 import com.seed.databaseseed.entities.relationalModel.Projeto;
 import com.seed.databaseseed.entities.relationalModel.Shark;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -37,6 +37,7 @@ public class CsvProcessor {
         Double investmentAmountPerShark = deal ? dealValue / numberOfSharksInDeal : null;
 
         Set<Shark> sharks = new HashSet<>();
+        Set<Shark> investors = new HashSet<>();
 
         Projeto projeto = new Projeto(picht, projectName, website, valuation, category, description);
         List<Empreendedor> entrepeneurs = parseEntrepeneur(entrepeneurNames, entrepeneurGender, projeto);
@@ -52,7 +53,18 @@ public class CsvProcessor {
                 if (values[32].equals("Jeff Foxworthy")) sharks.add(new Shark(8, values[32]));
             }
         }
-        PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurs, website, valuation, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark, sharks);
+        for (int i = 18; i < 31; i+=2) {
+            if (!values[18].isEmpty()) investors.add(new Shark(1, "Barbara Corcoran"));
+            if (!values[18].isEmpty())  investors.add(new Shark(2, "Mark Cuban"));
+            if (!values[18].isEmpty())  investors.add(new Shark(3, "Lori Greiner"));
+            if (!values[18].isEmpty())  investors.add(new Shark(4, "Robert Herjavec"));
+            if (!values[18].isEmpty())  investors.add(new Shark(5, "Daymond John"));
+            if (!values[18].isEmpty())  investors.add(new Shark(6, "Kevin O Leary"));
+            if (!values[18].isEmpty())  investors.add(new Shark(7, "Kevin Harrington"));
+            if (!values[18].isEmpty())  investors.add(new Shark(8, "Jeff Foxworthy"));
+        }
+
+        PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurs, website, valuation, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark, sharks, investors);
         pitches.add(p);
 //        System.out.println(p);
     }
