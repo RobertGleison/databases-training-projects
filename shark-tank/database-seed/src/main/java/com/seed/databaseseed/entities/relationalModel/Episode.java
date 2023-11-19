@@ -16,8 +16,8 @@ public class Episode {
     private Integer season;
     @ManyToMany
     @JoinTable(name = "episodio_shark",
-            joinColumns = @JoinColumn(name = "shark_id"),
-            inverseJoinColumns = @JoinColumn(name = "numero_do_episodio"))
+            joinColumns = @JoinColumn(name = "numero_do_episodio"),
+            inverseJoinColumns = @JoinColumn(name = "shark_id"))
     private Set<Shark> sharks = new HashSet<>();
     @OneToMany(mappedBy = "episode")
     private Set<Project> projects = new HashSet<>();

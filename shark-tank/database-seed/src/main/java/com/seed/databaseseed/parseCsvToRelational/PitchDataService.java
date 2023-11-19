@@ -16,20 +16,24 @@ public class PitchDataService {
         return CsvProcessor.getPitches();
     }
 
+    private final InvestmentRepository investmentRepository;
+    private final EntrepeneurRepository entrepeneurRepository;
+    private final ProjectRepository projectRepository;
+    private final SharkRepository sharkRepository;
+    private final EpisodeRepository episodeRepository;
     @Autowired
-    private InvestmentRepository investmentRepository;
-
-    @Autowired
-    private EntrepeneurRepository entrepeneurRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private SharkRepository sharkRepository;
-
-    @Autowired
-    private EpisodeRepository episodeRepository;
+    public PitchDataService(
+            InvestmentRepository investmentRepository,
+            EntrepeneurRepository entrepeneurRepository,
+            ProjectRepository projectRepository,
+            SharkRepository sharkRepository,
+            EpisodeRepository episodeRepository) {
+        this.investmentRepository = investmentRepository;
+        this.entrepeneurRepository = entrepeneurRepository;
+        this.projectRepository = projectRepository;
+        this.sharkRepository = sharkRepository;
+        this.episodeRepository = episodeRepository;
+    }
 
     @Transactional
     public void managePitch() {

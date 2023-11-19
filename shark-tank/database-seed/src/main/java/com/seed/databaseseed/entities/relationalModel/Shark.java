@@ -11,7 +11,7 @@ public class Shark {
     @Column(name = "shark_id")
     private Integer id;
     @Column(name = "nome")
-    public String name;
+    private String name;
     @ManyToMany(mappedBy = "sharks")
     private Set<Episode> episodes = new HashSet<>();
     @OneToMany(mappedBy = "id.shark")
