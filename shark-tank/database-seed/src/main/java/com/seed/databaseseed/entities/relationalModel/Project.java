@@ -19,12 +19,12 @@ public class Project {
     private String category;
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String description;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "numero_do_episodio")
     private Episode episode;
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Entrepeneur> entrepeneurs = new ArrayList<>();
-    @OneToMany(mappedBy = "id.project")
+    @OneToMany(mappedBy = "id.project", cascade = CascadeType.ALL)
     private List<Investment> investments = new ArrayList<>();
 
     public Project(Integer id, String name, String website, Double valuation, String category, String description) {

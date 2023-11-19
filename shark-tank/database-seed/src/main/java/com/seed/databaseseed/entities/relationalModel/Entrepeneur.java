@@ -14,7 +14,7 @@ public class Entrepeneur {
     private String name;
     @Column(name = "genero")
     private String gender;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "projeto_id")
     private Project project;
 

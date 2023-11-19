@@ -12,9 +12,9 @@ public class Shark {
     private Integer id;
     @Column(name = "nome")
     private String name;
-    @ManyToMany(mappedBy = "sharks")
+    @ManyToMany(mappedBy = "sharks", cascade = CascadeType.ALL)
     private Set<Episode> episodes = new HashSet<>();
-    @OneToMany(mappedBy = "id.shark")
+    @OneToMany(mappedBy = "id.shark", cascade = CascadeType.ALL)
     private List<Investment> investments = new ArrayList<>();
 
     public Shark(Integer id, String name) {

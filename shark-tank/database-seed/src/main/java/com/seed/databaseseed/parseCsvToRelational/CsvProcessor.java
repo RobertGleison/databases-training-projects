@@ -54,14 +54,14 @@ public class CsvProcessor {
             }
         }
         for (int i = 18; i < 31; i+=2) {
-            if (!values[18].isEmpty()) investors.add(new Shark(1, "Barbara Corcoran"));
-            if (!values[18].isEmpty())  investors.add(new Shark(2, "Mark Cuban"));
-            if (!values[18].isEmpty())  investors.add(new Shark(3, "Lori Greiner"));
-            if (!values[18].isEmpty())  investors.add(new Shark(4, "Robert Herjavec"));
-            if (!values[18].isEmpty())  investors.add(new Shark(5, "Daymond John"));
-            if (!values[18].isEmpty())  investors.add(new Shark(6, "Kevin O Leary"));
-            if (!values[18].isEmpty())  investors.add(new Shark(7, "Kevin Harrington"));
-            if (!values[18].isEmpty())  investors.add(new Shark(8, "Jeff Foxworthy"));
+            if (values[18] != null) investors.add(new Shark(1, "Barbara Corcoran"));
+            if (values[18]!= null)  investors.add(new Shark(2, "Mark Cuban"));
+            if (values[18]!= null)  investors.add(new Shark(3, "Lori Greiner"));
+            if (values[18]!= null)  investors.add(new Shark(4, "Robert Herjavec"));
+            if (values[18]!= null)  investors.add(new Shark(5, "Daymond John"));
+            if (values[18]!= null)  investors.add(new Shark(6, "Kevin O Leary"));
+            if (values[18]!= null)  investors.add(new Shark(7, "Kevin Harrington"));
+            if (values[18]!= null)  investors.add(new Shark(8, "Jeff Foxworthy"));
         }
 
         PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurs,

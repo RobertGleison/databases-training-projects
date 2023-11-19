@@ -19,7 +19,7 @@ public class Episode {
             joinColumns = @JoinColumn(name = "numero_do_episodio"),
             inverseJoinColumns = @JoinColumn(name = "shark_id"))
     private Set<Shark> sharks = new HashSet<>();
-    @OneToMany(mappedBy = "episode")
+    @OneToMany(mappedBy = "episode", cascade = CascadeType.ALL)
     private Set<Project> projects = new HashSet<>();
 
     public Episode(Integer number, Integer season) {
