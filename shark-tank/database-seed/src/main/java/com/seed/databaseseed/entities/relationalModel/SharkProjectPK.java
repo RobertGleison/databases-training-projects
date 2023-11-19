@@ -8,13 +8,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class SharkProjetoPK implements Serializable {
+public class SharkProjectPK implements Serializable {
     @ManyToOne
     @JoinColumn(name = "shark_id")
     private Shark shark;
     @ManyToOne
     @JoinColumn(name = "projeto_id")
-    private Projeto projeto;
+    private Project project;
 
     public Shark getShark() {
         return shark;
@@ -24,23 +24,19 @@ public class SharkProjetoPK implements Serializable {
         this.shark = shark;
     }
 
-    public Projeto getProjeto() {
-        return projeto;
-    }
+    public Project getProject() { return project; }
 
-    public void setProjeto(Projeto projeto) {
-        this.projeto = projeto;
-    }
+    public void setProject(Project project) { this.project = project; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SharkProjetoPK that = (SharkProjetoPK) o;
-        return Objects.equals(getShark(), that.getShark()) && Objects.equals(getProjeto(), that.getProjeto());
+        SharkProjectPK that = (SharkProjectPK) o;
+        return Objects.equals(getShark(), that.getShark()) && Objects.equals(getProject(), that.getProject());
     }
     @Override
     public int hashCode() {
-        return Objects.hash(getShark(), getProjeto());
+        return Objects.hash(getShark(), getProject());
     }
 }

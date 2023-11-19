@@ -1,6 +1,7 @@
 package com.seed.databaseseed.entities.relationalModel;
 
 import jakarta.persistence.*;
+
 import java.util.*;
 
 @Entity
@@ -9,15 +10,16 @@ public class Shark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shark_id")
     private Integer id;
-    public String nome;
+    @Column(name = "nome")
+    public String name;
     @ManyToMany(mappedBy = "sharks")
-    private Set<Episodio> episodios = new HashSet<>();
+    private Set<Episode> episodes = new HashSet<>();
     @OneToMany(mappedBy = "id.shark")
-    private List<Investimento> investimentos = new ArrayList<>();
+    private List<Investment> investments = new ArrayList<>();
 
-    public Shark(Integer id, String nome) {
+    public Shark(Integer id, String name) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
     }
 
     public Shark() {
@@ -31,45 +33,34 @@ public class Shark {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Set<Episodio> getEpisodio() {
-        return episodios;
-    }
+    public Set<Episode> getEpisodes() { return episodes; }
 
-    public void addEpisodio(Episodio episodio){
-        episodios.add(episodio);
-    }
+    public void setEpisodes(Set<Episode> episodes) { this.episodes = episodes; }
 
-    public void setEpisodio(Set<Episodio> episodios) {
-        this.episodios = episodios;
-    }
+    public List<Investment> getInvestments() { return investments; }
+
+    public void setInvestments(List<Investment> investments) { this.investments = investments; }
+
+    public void addEpisode(Episode episode) { episodes.add(episode); }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Shark shark = (Shark) o;
-        return Objects.equals(nome, shark.nome);
+        return Objects.equals(name, shark.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome);
-    }
-
-    @Override
-    public String toString() {
-        return "Shark{" +
-                "Id=" + id +
-                ", nome='" + nome + '\'' +
-                ", episodios=" + episodios +
-                '}';
+        return Objects.hash(name);
     }
 }

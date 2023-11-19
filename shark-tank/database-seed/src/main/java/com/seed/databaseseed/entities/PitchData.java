@@ -1,6 +1,6 @@
 package com.seed.databaseseed.entities;
 
-import com.seed.databaseseed.entities.relationalModel.Empreendedor;
+import com.seed.databaseseed.entities.relationalModel.Entrepeneur;
 import com.seed.databaseseed.entities.relationalModel.Shark;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class PitchData {
     private String category;
     private String description;
     private String entrepeneurGender;
-    private List<Empreendedor> entrepeneurNames;
+    private List<Entrepeneur> entrepeneurNames;
     private String website;
     private Double valuation;
     private Boolean deal;
@@ -38,7 +38,7 @@ public class PitchData {
                      String category,
                      String description,
                      String entrepeneurGender,
-                     List<Empreendedor> entrepeneurNames,
+                     List<Entrepeneur> entrepeneurNames,
                      String website,
                      Double valuation,
                      Boolean deal,
@@ -125,11 +125,11 @@ public class PitchData {
         this.entrepeneurGender = entrepeneurGender;
     }
 
-    public List<Empreendedor> getEntrepeneurNames() {
+    public List<Entrepeneur> getEntrepeneurNames() {
         return entrepeneurNames;
     }
 
-    public void setEntrepeneurNames(List<Empreendedor> entrepeneurNames) {
+    public void setEntrepeneurNames(List<Entrepeneur> entrepeneurNames) {
         this.entrepeneurNames = entrepeneurNames;
     }
 
@@ -145,13 +145,11 @@ public class PitchData {
         return valuation;
     }
 
-    public void setValuation(Double askedValue) {
+    public void setValuation(Double valuation) {
         this.valuation = valuation;
     }
 
-    public Boolean getDeal() {
-        return deal;
-    }
+    public Boolean getDeal() { return deal; }
 
     public void setDeal(Boolean deal) {
         this.deal = deal;
@@ -224,26 +222,5 @@ public class PitchData {
     @Override
     public int hashCode() {
         return Objects.hash(getPicht());
-    }
-
-    @Override
-    public String toString() {
-        return "Episode=" + episode +
-                ", season=" + season +
-                ", picht=" + picht +
-                ", projectName='" + projectName + '\'' +
-                ", category='" + category + '\'' +
-                ", description='" + description + '\'' +
-                ", entrepeneurGender='" + entrepeneurGender + '\'' +
-                ", entrepeneurNames=" + entrepeneurNames +
-                ", website='" + website + '\'' +
-                ", valuation=" + valuation +
-                ", deal=" + deal +
-                ", dealValue=" + dealValue +
-                ", percentageOfProject=" + percentageOfProject +
-                ", numberOfSharksInDeal=" + numberOfSharksInDeal +
-                ", percentageOfCompanyPerShark=" + percentageOfCompanyPerShark +
-                ", investmentAmountPerShark=" + investmentAmountPerShark +
-                ", sharks=";
     }
 }

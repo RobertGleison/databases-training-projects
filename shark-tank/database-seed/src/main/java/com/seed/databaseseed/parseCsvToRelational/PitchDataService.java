@@ -17,80 +17,77 @@ public class PitchDataService {
     }
 
     @Autowired
-    private InvestimentoRepository investimentoRepository;
+    private InvestmentRepository investmentRepository;
 
     @Autowired
-    private EmpreendedorRepository empreendedorRepository;
+    private EntrepeneurRepository entrepeneurRepository;
 
     @Autowired
-    private ProjetoRepository projetoRepository;
+    private ProjectRepository projectRepository;
 
     @Autowired
     private SharkRepository sharkRepository;
 
     @Autowired
-    private EpisodioRepository episodioRepository;
+    private EpisodeRepository episodeRepository;
 
     @Transactional
     public void managePitch() {
+        //Persist all ER model for each pitch
         List<PitchData> pitches = getAllPitches();
         for (PitchData p : pitches) {
-            Episodio episodio = insertEpisode(p.getSeason(), p.getEpisode(), p.getSharks());
-            setEpisodeToShark(episodio);
-            Projeto projeto = insertProject(p.getPicht(), p.getProjectName(), p.getWebsite(), p.getValuation(),
-                    p.getCategory(), p.getDescription(), episodio, p.getEntrepeneurNames());
-            setProjectToEpisode(projeto, episodio);
-            setProjectToEntrepeneur(projeto);
-            List<Investimento> investimentos = insertInvestimento(projeto, p.getInvestors(), p.getInvestmentAmountPerShark(), p.getPercentageOfCompanyPerShark());
+            Episode episode = insertEpisode(p.getSeason(), p.getEpisode(), p.getSharks());
+            setEpisodesToShark(episode);
+            Project project = insertProject(p.getPicht(), p.getProjectName(), p.getWebsite(), p.getValuation(),
+                    p.getCategory(), p.getDescription(), episode, p.getEntrepeneurNames());
+            setProjectToEpisode(project, episode);
+            setProjectToEntrepeneur(project);
+            List<Investment> investments = insertInvestiment(project, p.getInvestors(), p.getInvestmentAmountPerShark(), p.getPercentageOfCompanyPerShark());
         }
-    }
-
-    private List<Investimento> insertInvestimento(Projeto projeto, Set<Shark> investors, Double investmentAmountPerShark, Double percentageOfCompanyPerShark) {
-        List<Investimento> investimentos = new ArrayList<>();
-        for (Shark s : investors) {
-            investimentos.add(new Investimento(s, projeto, investmentAmountPerShark, percentageOfCompanyPerShark));
-        }
-        return investimentos;
-    }
-
-    private void setProjectToEntrepeneur(Projeto projeto) {
-        List<Empreendedor> empreendedores = projeto.getEmpreendedores();
-        for (Empreendedor emp : empreendedores) {
-            emp.setProjeto(projeto);
-
-        }
-    }
-
-    private Projeto insertProject(Integer picht, String projectName, String website, Double valuation, String category, String description, Episodio episode, List<Empreendedor> entrepeneurNames) {
-        Projeto projeto = new Projeto(picht, projectName, website, valuation, category, description);
-        projeto.setEmpreendedores(entrepeneurNames);
-        projeto.setEpisodio(episode);
-        return projeto;
-    }
-
-    private void setProjectToEpisode(Projeto project, Episodio episode) {
-        episode.addProject(project);
-    }
-
-    private void setEpisodeToShark(Episodio episode) {
-        Set<Shark> sharksInEpisode = episode.getSharks();
-        for (Shark s : sharksInEpisode) {
-            s.addEpisodio(episode);
-        }
-
-    }
-
-    private Episodio insertEpisode(Integer season, Integer number, Set<Shark> sharks) {
-        Episodio episodio = new Episodio(number, season);
-        episodio.setSharks(insertSharks(sharks));
-        return episodioRepository.save(episodio);
     }
 
     private Set<Shark> insertSharks(Set<Shark> sharks) {
-        Set<Shark> sharksToSave = new HashSet<>();
-        for (Shark s : sharks) {
-            if (!sharkRepository.existsById(s.getId())) sharksToSave.add(s);
-        }
-        return new HashSet<>(sharkRepository.saveAll(sharksToSave));
+        return new HashSet<>(sharkRepository.saveAll(sharks));
     }
+
+    private Episode insertEpisode(Integer season, Integer number, Set<Shark> sharks) {
+        Episode episode = new Episode(number, season);
+        episode.setSharks(insertSharks(sharks));
+        return episodeRepository.save(episode);
+    }
+
+    private Project insertProject(Integer picht, String projectName, String website, Double valuation, String category, String description, Episode episode, List<Entrepeneur> entrepeneurNames) {
+        Project project = new Project(picht, projectName, website, valuation, category, description);
+        project.setEntrepeneurs(entrepeneurNames);
+        project.setEpisode(episode);
+        return project;
+    }
+
+    private List<Investment> insertInvestiment(Project project, Set<Shark> investors, Double investmentAmountPerShark, Double percentageOfCompanyPerShark) {
+        List<Investment> investments = new ArrayList<>();
+        for (Shark s : investors) {
+            investments.add(new Investment(s, project, investmentAmountPerShark, percentageOfCompanyPerShark));
+        }
+        return investments;
+    }
+
+    private void setProjectToEpisode(Project project, Episode episode) {
+        episode.addProject(project);
+    }
+
+    private void setEpisodesToShark(Episode episode) {
+        Set<Shark> sharksInEpisode = episode.getSharks();
+        for (Shark s : sharksInEpisode) {
+            s.addEpisode(episode);
+        }
+    }
+
+    private void setProjectToEntrepeneur(Project project) {
+        List<Entrepeneur> empreendedores = project.getEntrepeneurs();
+        for (Entrepeneur emp : empreendedores) {
+            emp.setProject(project);
+        }
+    }
+
+
 }

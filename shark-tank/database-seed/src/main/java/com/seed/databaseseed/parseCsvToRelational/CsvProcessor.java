@@ -1,8 +1,8 @@
 package com.seed.databaseseed.parseCsvToRelational;
 
 import com.seed.databaseseed.entities.PitchData;
-import com.seed.databaseseed.entities.relationalModel.Empreendedor;
-import com.seed.databaseseed.entities.relationalModel.Projeto;
+import com.seed.databaseseed.entities.relationalModel.Entrepeneur;
+import com.seed.databaseseed.entities.relationalModel.Project;
 import com.seed.databaseseed.entities.relationalModel.Shark;
 
 import org.springframework.stereotype.Component;
@@ -11,8 +11,8 @@ import java.util.*;
 
 @Component
 public class CsvProcessor {
-    private static final List<PitchData> pitches = new ArrayList<>();
 
+    private static final List<PitchData> pitches = new ArrayList<>();
     public static List<PitchData> getPitches() {
         return pitches;
     }
@@ -35,12 +35,12 @@ public class CsvProcessor {
         Integer numberOfSharksInDeal = deal ? Integer.parseInt(values[15]) : null;
         Double percentageOfCompanyPerShark = deal ? percentageOfProject / numberOfSharksInDeal : null;
         Double investmentAmountPerShark = deal ? dealValue / numberOfSharksInDeal : null;
-
         Set<Shark> sharks = new HashSet<>();
         Set<Shark> investors = new HashSet<>();
+        Project project = new Project(picht, projectName, website, valuation, category, description);
+        List<Entrepeneur> entrepeneurs = parseEntrepeneur(entrepeneurNames, entrepeneurGender, project);
 
-        Projeto projeto = new Projeto(picht, projectName, website, valuation, category, description);
-        List<Empreendedor> entrepeneurs = parseEntrepeneur(entrepeneurNames, entrepeneurGender, projeto);
+        //Fill the sharks and investors.
         for (int i = 43; i < 50; i++) {
             if (Integer.parseInt(values[33]) == 1) sharks.add(new Shark(1, "Barbara Corcoran"));
             if (Integer.parseInt(values[34]) == 1) sharks.add(new Shark(2, "Mark Cuban"));
@@ -64,25 +64,27 @@ public class CsvProcessor {
             if (!values[18].isEmpty())  investors.add(new Shark(8, "Jeff Foxworthy"));
         }
 
-        PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurs, website, valuation, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark, sharks, investors);
+        PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurs,
+                                    website, valuation, deal, dealValue, percentageOfProject, numberOfSharksInDeal,
+                                    percentageOfCompanyPerShark, investmentAmountPerShark, sharks, investors);
         pitches.add(p);
-//        System.out.println(p);
     }
 
-    private static List<Empreendedor> parseEntrepeneur(List<String> names, String gender, Projeto projeto) {
-        List<Empreendedor> entrepeneurs = new ArrayList<>();
+    private static List<Entrepeneur> parseEntrepeneur(List<String> names, String gender, Project project) {
+        List<Entrepeneur> entrepeneurs = new ArrayList<>();
                 List<Integer> codes = EntrepeneurCodeManager.getEntrepeneurCode(names);
         for (int i = 0; i < names.size(); i++) {
-            entrepeneurs.add(new Empreendedor(codes.get(i), names.get(i), gender, projeto));
+            entrepeneurs.add(new Entrepeneur(codes.get(i), names.get(i), gender, project));
         }
         return entrepeneurs;
     }
 
+    //Create the episode id
     private static Integer calculateGlobalEpisodeNumber(Integer episode, Integer season) {
-//        Number of episodes of each season:
-//        1 = 15
-//        2 = 9
-//        3 =15
+        //Number of episodes of each season:
+        //1 = 15
+        //2 = 9
+        //3 =15
         if (season == 1) return episode;
         else if (season == 2) return episode + 14;
         else if (season == 3) return episode + 23;

@@ -3,23 +3,26 @@ package com.seed.databaseseed.entities.relationalModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Investimento implements Serializable {
+@Table(name = "Investimento")
+public class Investment implements Serializable {
     @EmbeddedId
-    private SharkProjetoPK id = new SharkProjetoPK();
+    private SharkProjectPK id = new SharkProjectPK();
     @Column(name = "valor_do_investimento")
     private Double valorDoInvestimento;
     @Column(name = "porcentagem_vendida_do_projeto")
     private Double porcentagemVendidaDoProjeto;
 
-    public Investimento() {
+    public Investment() {
     }
 
-    public Investimento(Shark shark, Projeto projeto, Double valorDoInvestimento, Double porcentagemVendidaDoProjeto) {
-        id.setProjeto(projeto);
+    public Investment(Shark shark, Project project, Double valorDoInvestimento, Double porcentagemVendidaDoProjeto) {
+        id.setProject(project);
         id.setShark(shark);
         this.valorDoInvestimento = valorDoInvestimento;
         this.porcentagemVendidaDoProjeto = porcentagemVendidaDoProjeto;
@@ -45,7 +48,7 @@ public class Investimento implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Investimento that = (Investimento) o;
+        Investment that = (Investment) o;
         return Objects.equals(getValorDoInvestimento(), that.getValorDoInvestimento());
     }
 

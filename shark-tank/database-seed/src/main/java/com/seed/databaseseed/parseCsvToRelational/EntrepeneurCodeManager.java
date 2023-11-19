@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//This class is responsible to generate entrepeneur id.
+//Some pithces have 2 entrepeneurs or more and because of that, the id is not the number of the pitch.
 @Component
 public class EntrepeneurCodeManager {
     private static int code = 1;
@@ -14,24 +16,17 @@ public class EntrepeneurCodeManager {
 
     public static List<Integer> getEntrepeneurCode(List<String> names) {
         List<Integer> tempCode = new ArrayList<>();
-
-        //@TODO remove code repetition
-        if (names.size() == 1) {
-            if (entrepeneurCode.containsKey(names.get(0))) {
-                tempCode.add(entrepeneurCode.get(names.get(0)));
-                return tempCode;
-            }
-            entrepeneurCode.put(names.get(0), code++);
-            tempCode.add(entrepeneurCode.get(names.get(0)));
-            return tempCode;
-        } else {
-            for (String name : names) {
-                if (entrepeneurCode.containsKey(name)) tempCode.add(entrepeneurCode.get(name));
-                entrepeneurCode.put(name, code++);
-                tempCode.add(entrepeneurCode.get(name));
-            }
-            return tempCode;
+        for (String name : names) {
+            tempCode.add(getOrGenerateCode(name));
         }
+        return tempCode;
+    }
+
+    private static int getOrGenerateCode(String name) {
+        if (entrepeneurCode.containsKey(name)) {
+            return entrepeneurCode.get(name);
+        }
+        entrepeneurCode.put(name, code++);
+        return entrepeneurCode.get(name);
     }
 }
-
