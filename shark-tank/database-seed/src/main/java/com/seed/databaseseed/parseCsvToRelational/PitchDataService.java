@@ -3,6 +3,7 @@ package com.seed.databaseseed.parseCsvToRelational;
 import com.seed.databaseseed.entities.relationalModel.*;
 import com.seed.databaseseed.entities.PitchData;
 import com.seed.databaseseed.repositories.EpisodioRepository;
+import com.seed.databaseseed.repositories.ProjetoRepository;
 import com.seed.databaseseed.repositories.SharkRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ public class PitchDataService {
         return CsvProcessor.getPitches();
     }
 
+
+    @Autowired
+    private ProjetoRepository projetoRepository;
+
     @Autowired
     private SharkRepository sharkRepository;
 
@@ -28,19 +33,31 @@ public class PitchDataService {
         List<PitchData> pitches = getAllPitches();
         for (PitchData p : pitches) {
             Episodio episodio = insertEpisode(p.getSeason(), p.getEpisode(),p.getSharks());
-            insertProject(p.getPicht(), p.getProjectName(), p.getWebsite(),p.getValuation(),p.getCategory(),
-                    p.getDescription(), episodio, p.getEntrepeneurNames(),p.getInvestmentAmountPerShark(),p.getPercentageOfCompanyPerShark());
+            setEpisodeToShark(episodio);
+            Projeto projeto = insertProject(p.getPicht(), p.getProjectName(), p.getWebsite(),p.getValuation(),
+                                p.getCategory(), p.getDescription(),episodio, p.getEntrepeneurNames());
+            setProjectToEpisode(projeto, episodio);
         }
     }
 
-    private void insertProject(Integer picht, String projectName, String website, Double valuation, String category, String description, Episodio episode, List<Empreendedor> entrepeneurNames, Double investmentAmountPerShark, Double percentageOfCompanyPerShark) {
+    private Projeto insertProject(Integer picht, String projectName, String website, Double valuation, String category, String description, Episodio episode, List<Empreendedor> entrepeneurNames) {
         Projeto projeto = new Projeto(picht, projectName, website, valuation, category, description);
         projeto.setEmpreendedores(entrepeneurNames);
         projeto.setEpisodio(episode);
-
-
+        return projeto;
     }
 
+    private void setProjectToEpisode(Projeto project, Episodio episode){
+            episode.addProject(project);
+    }
+
+    private void setEpisodeToShark(Episodio episode){
+        Set<Shark> sharksInEpisode = episode.getSharks();
+        for (Shark s : sharksInEpisode){
+           s.addEpisodio(episode);
+        }
+
+    }
     private Episodio insertEpisode(Integer season, Integer number, Set<Shark> sharks){
         Episodio episodio = new Episodio(number, season);
         episodio.setSharks(insertSharks(sharks));

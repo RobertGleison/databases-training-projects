@@ -60,6 +60,10 @@ public class Episodio {
         this.projetos = projetos;
     }
 
+    public void addProject(Projeto project){
+        projetos.add(project);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

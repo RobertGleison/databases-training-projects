@@ -43,6 +43,10 @@ public class Shark {
         return episodios;
     }
 
+    public void addEpisodio(Episodio episodio){
+        episodios.add(episodio);
+    }
+
     public void setEpisodio(Set<Episodio> episodios) {
         this.episodios = episodios;
     }
