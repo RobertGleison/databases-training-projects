@@ -1,5 +1,8 @@
 package com.seed.databaseseed.entities;
 
+import com.seed.databaseseed.entities.relationalModel.Empreendedor;
+import com.seed.databaseseed.entities.relationalModel.Shark;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -12,16 +15,16 @@ public class PitchData {
     private String category;
     private String description;
     private String entrepeneurGender;
-    private List<String> entrepeneurNames;
+    private List<Empreendedor> entrepeneurNames;
     private String website;
-    private Double askedValue;
+    private Double valuation;
     private Boolean deal;
     private Double dealValue;
     private Double percentageOfProject;
     private Integer numberOfSharksInDeal;
     private Double percentageOfCompanyPerShark;
     private Double investmentAmountPerShark;
-    private Set<String> sharks;
+    private Set<Shark> sharks;
 
     public PitchData() {
     }
@@ -34,15 +37,15 @@ public class PitchData {
                      String category,
                      String description,
                      String entrepeneurGender,
-                     List<String> entrepeneurNames,
+                     List<Empreendedor> entrepeneurNames,
                      String website,
-                     Double askedValue,
+                     Double valuation,
                      Boolean deal,
                      Double dealValue,
                      Double percentageOfProject,
                      Integer numberOfSharksInDeal,
                      Double percentageOfCompanyPerShark,
-                     Double investmentAmountPerShark, Set<String> sharks) {
+                     Double investmentAmountPerShark, Set<Shark> sharks) {
         this.episode = episode;
         this.season = season;
         this.picht = picht;
@@ -52,7 +55,7 @@ public class PitchData {
         this.entrepeneurGender = entrepeneurGender;
         this.entrepeneurNames = entrepeneurNames;
         this.website = website;
-        this.askedValue = askedValue;
+        this.valuation = valuation;
         this.deal = deal;
         this.dealValue = dealValue;
         this.percentageOfProject = percentageOfProject;
@@ -118,11 +121,11 @@ public class PitchData {
         this.entrepeneurGender = entrepeneurGender;
     }
 
-    public List<String> getEntrepeneurNames() {
+    public List<Empreendedor> getEntrepeneurNames() {
         return entrepeneurNames;
     }
 
-    public void setEntrepeneurNames(List<String> entrepeneurNames) {
+    public void setEntrepeneurNames(List<Empreendedor> entrepeneurNames) {
         this.entrepeneurNames = entrepeneurNames;
     }
 
@@ -134,12 +137,12 @@ public class PitchData {
         this.website = website;
     }
 
-    public Double getAskedValue() {
-        return askedValue;
+    public Double getValuation() {
+        return valuation;
     }
 
-    public void setAskedValue(Double askedValue) {
-        this.askedValue = askedValue;
+    public void setValuation(Double askedValue) {
+        this.valuation = valuation;
     }
 
     public Boolean getDeal() {
@@ -190,11 +193,11 @@ public class PitchData {
         this.investmentAmountPerShark = investmentAmountPerShark;
     }
 
-    public Set<String> getSharks() {
+    public Set<Shark> getSharks() {
         return sharks;
     }
 
-    public void setSharks(Set<String> sharks) {
+    public void setSharks(Set<Shark> sharks) {
         this.sharks = sharks;
     }
 
@@ -222,7 +225,7 @@ public class PitchData {
                 ", entrepeneurGender='" + entrepeneurGender + '\'' +
                 ", entrepeneurNames=" + entrepeneurNames +
                 ", website='" + website + '\'' +
-                ", askedValue=" + askedValue +
+                ", valuation=" + valuation +
                 ", deal=" + deal +
                 ", dealValue=" + dealValue +
                 ", percentageOfProject=" + percentageOfProject +

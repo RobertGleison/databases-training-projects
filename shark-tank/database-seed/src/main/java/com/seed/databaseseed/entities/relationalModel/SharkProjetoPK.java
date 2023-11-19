@@ -1,7 +1,6 @@
-package com.seed.databaseseed.entities;
+package com.seed.databaseseed.entities.relationalModel;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 

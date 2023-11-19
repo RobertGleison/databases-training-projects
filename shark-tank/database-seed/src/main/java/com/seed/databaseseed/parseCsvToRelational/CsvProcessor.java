@@ -1,0 +1,79 @@
+package com.seed.databaseseed.parseCsvToRelational;
+
+import com.seed.databaseseed.entities.PitchData;
+import com.seed.databaseseed.entities.relationalModel.Empreendedor;
+import com.seed.databaseseed.entities.relationalModel.Projeto;
+import com.seed.databaseseed.entities.relationalModel.Shark;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.*;
+
+@Component
+public class CsvProcessor {
+    private static final List<PitchData> pitches = new ArrayList<>();
+
+    public static List<PitchData> getPitches() {
+        return pitches;
+    }
+
+    public static void createVariables(String[] values) throws RuntimeException {
+        Integer season = Integer.parseInt(values[0]);
+        Integer episode = calculateGlobalEpisodeNumber(Integer.parseInt(values[1]), season);
+        Integer picht = Integer.parseInt(values[2]);
+        String projectName = values[3];
+        String category = values[4];
+        String description = values[5];
+        String entrepeneurGender = values[6];
+        String entrepeneurName = values[7];
+        String website = values[8];
+        List<String> entrepeneurNames = new ArrayList<>(entrepeneurName.contains("_") ? Arrays.asList(entrepeneurName.split("_")) : Collections.singletonList(entrepeneurName));
+        Double valuation = Double.parseDouble(values[10]);
+        Boolean deal = (values[11].equals("1"));
+        Double dealValue = deal ? Double.parseDouble(values[12]) : null;
+        Double percentageOfProject = deal ? Double.parseDouble(values[13]) : null;
+        Integer numberOfSharksInDeal = deal ? Integer.parseInt(values[15]) : null;
+        Double percentageOfCompanyPerShark = deal ? percentageOfProject / numberOfSharksInDeal : null;
+        Double investmentAmountPerShark = deal ? dealValue / numberOfSharksInDeal : null;
+
+        Set<Shark> sharks = new HashSet<>();
+
+        Projeto projeto = new Projeto(picht, projectName, website, valuation, category, description);
+        List<Empreendedor> entrepeneurs = parseEntrepeneur(entrepeneurNames, entrepeneurGender, projeto);
+        for (int i = 43; i < 50; i++) {
+            if (Integer.parseInt(values[33]) == 1) sharks.add(new Shark(1, "Barbara Corcoran"));
+            if (Integer.parseInt(values[34]) == 1) sharks.add(new Shark(2, "Mark Cuban"));
+            if (Integer.parseInt(values[35]) == 1) sharks.add(new Shark(3, "Lori Greiner"));
+            if (Integer.parseInt(values[36]) == 1) sharks.add(new Shark(4, "Robert Herjavec"));
+            if (Integer.parseInt(values[37]) == 1) sharks.add(new Shark(5, "Daymond John"));
+            if (Integer.parseInt(values[38]) == 1) sharks.add(new Shark(6, "Kevin O Leary"));
+            if (!values[32].isEmpty()) {
+                if (values[32].equals("Kevin Harrington")) sharks.add(new Shark(7, values[32]));
+                if (values[32].equals("Jeff Foxworthy")) sharks.add(new Shark(8, values[32]));
+            }
+        }
+        PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurs, website, valuation, deal, dealValue, percentageOfProject, numberOfSharksInDeal, percentageOfCompanyPerShark, investmentAmountPerShark, sharks);
+        pitches.add(p);
+//        System.out.println(p);
+    }
+
+    private static List<Empreendedor> parseEntrepeneur(List<String> names, String gender, Projeto projeto) {
+        List<Empreendedor> entrepeneurs = new ArrayList<>();
+                List<Integer> codes = EntrepeneurCodeManager.getEntrepeneurCode(names);
+        for (int i = 0; i < names.size(); i++) {
+            entrepeneurs.add(new Empreendedor(codes.get(i), names.get(i), gender, projeto));
+        }
+        return entrepeneurs;
+    }
+
+    private static Integer calculateGlobalEpisodeNumber(Integer episode, Integer season) {
+//        Number of episodes of each season:
+//        1 = 15
+//        2 = 9
+//        3 =15
+        if (season == 1) return episode;
+        else if (season == 2) return episode + 14;
+        else if (season == 3) return episode + 23;
+        return episode + 38;
+    }
+}

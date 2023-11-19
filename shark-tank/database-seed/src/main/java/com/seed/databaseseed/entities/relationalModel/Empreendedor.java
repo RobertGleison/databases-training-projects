@@ -1,4 +1,4 @@
-package com.seed.databaseseed.entities;
+package com.seed.databaseseed.entities.relationalModel;
 
 import jakarta.persistence.*;
 

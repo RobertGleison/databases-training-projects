@@ -1,15 +1,18 @@
-package com.seed.databaseseed;
+package com.seed.databaseseed.parseCsvToRelational;
+
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class EntrepeneurCodeManager {
     private static int code = 1;
     private static Map<String, Integer> entrepeneurCode = new HashMap<>();
 
-    public List<Integer> getEntrepeneurCode(List<String> names) {
+    public static List<Integer> getEntrepeneurCode(List<String> names) {
         List<Integer> tempCode = new ArrayList<>();
 
         //@TODO remove code repetition

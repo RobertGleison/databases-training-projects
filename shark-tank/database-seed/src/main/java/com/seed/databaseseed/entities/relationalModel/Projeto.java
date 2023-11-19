@@ -1,4 +1,4 @@
-package com.seed.databaseseed.entities;
+package com.seed.databaseseed.entities.relationalModel;
 
 import jakarta.persistence.*;
 import java.util.*;
@@ -20,11 +20,20 @@ public class Projeto {
     @JoinColumn(name = "numero_do_episodio")
     private Episodio episodio;
     @OneToMany(mappedBy = "projeto")
-    private Set<Empreendedor> empreendedores = new HashSet<>();
+    private List<Empreendedor> empreendedores = new ArrayList<>();
     @OneToMany(mappedBy = "id.projeto")
     private List<Investimento> investimentos = new ArrayList<>();
 
-    public Projeto(Integer id, String nome, String website, Double valorDeMercado, String categoria, String descricao,Episodio episodio) {
+    public Projeto(Integer id, String nome, String website, Double valorDeMercado, String categoria, String descricao) {
+        this.id = id;
+        this.nome = nome;
+        this.website = website;
+        this.valorDeMercado = valorDeMercado;
+        this.categoria = categoria;
+        this.descricao = descricao;
+    }
+
+    public Projeto(Integer id, String nome, String website, Double valorDeMercado, String categoria, String descricao, Episodio episodio) {
         this.id = id;
         this.nome = nome;
         this.website = website;
@@ -93,11 +102,11 @@ public class Projeto {
         this.episodio = episodio;
     }
 
-    public Set<Empreendedor> getEmpreendedores() {
+    public List<Empreendedor> getEmpreendedores() {
         return empreendedores;
     }
 
-    public void setEmpreendedores(Set<Empreendedor> empreendedores) {
+    public void setEmpreendedores(List<Empreendedor> empreendedores) {
         this.empreendedores = empreendedores;
     }
 
