@@ -7,7 +7,7 @@ import java.util.*;
 @Entity
 public class Shark {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shark_id")
     private Integer id;
     @Column(name = "nome")
@@ -41,15 +41,29 @@ public class Shark {
         this.name = name;
     }
 
-    public Set<Episode> getEpisodes() { return episodes; }
+    public Set<Episode> getEpisodes() {
+        return episodes;
+    }
 
-    public void setEpisodes(Set<Episode> episodes) { this.episodes = episodes; }
+    public void setEpisodes(Set<Episode> episodes) {
+        this.episodes = episodes;
+    }
 
-    public List<Investment> getInvestments() { return investments; }
+    public List<Investment> getInvestments() {
+        return investments;
+    }
 
-    public void setInvestments(List<Investment> investments) { this.investments = investments; }
+    public void setInvestments(List<Investment> investments) {
+        this.investments = investments;
+    }
 
-    public void addEpisode(Episode episode) { episodes.add(episode); }
+    public void addEpisode(Episode episode) {
+        episodes.add(episode);
+    }
+
+    public void addInvestment(Investment investment) {
+        investments.add(investment);
+    }
 
     @Override
     public boolean equals(Object o) {

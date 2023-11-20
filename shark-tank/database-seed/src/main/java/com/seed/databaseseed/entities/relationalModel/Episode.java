@@ -9,12 +9,12 @@ import java.util.Set;
 @Table(name = "Episodio")
 public class Episode {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "numero_do_episodio")
     private Integer number;
     @Column(name = "temporada")
     private Integer season;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "episodio_shark",
             joinColumns = @JoinColumn(name = "numero_do_episodio"),
             inverseJoinColumns = @JoinColumn(name = "shark_id"))

@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "Investimento")
@@ -28,6 +29,10 @@ public class Investment implements Serializable {
         this.porcentagemVendidaDoProjeto = porcentagemVendidaDoProjeto;
     }
 
+    public Shark getShark(){ return id.getShark(); }
+
+    public Project getProject(){ return id.getProject(); }
+
     public Double getValorDoInvestimento() {
         return valorDoInvestimento;
     }
@@ -42,6 +47,13 @@ public class Investment implements Serializable {
 
     public void setPorcentagemVendidaDoProjeto(Double porcentagemVendidaDoProjeto) {
         this.porcentagemVendidaDoProjeto = porcentagemVendidaDoProjeto;
+    }
+    public void setProject(Project project){
+        id.setProject(project);
+    }
+
+    public void setShark(Shark shark){
+        id.setShark(shark);
     }
 
     @Override

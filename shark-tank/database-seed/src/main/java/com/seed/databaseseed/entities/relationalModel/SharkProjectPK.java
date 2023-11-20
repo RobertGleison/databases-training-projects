@@ -1,5 +1,6 @@
 package com.seed.databaseseed.entities.relationalModel;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -9,10 +10,10 @@ import java.util.Objects;
 
 @Embeddable
 public class SharkProjectPK implements Serializable {
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shark_id")
     private Shark shark;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "projeto_id")
     private Project project;
 

@@ -7,7 +7,7 @@ import java.util.*;
 @Table(name = "Projeto")
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "projeto_id")
     private Integer id;
     @Column(name = "nome")

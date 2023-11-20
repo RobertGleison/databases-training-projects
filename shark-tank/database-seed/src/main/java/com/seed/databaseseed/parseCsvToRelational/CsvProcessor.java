@@ -5,13 +5,15 @@ import com.seed.databaseseed.entities.relationalModel.Entrepeneur;
 import com.seed.databaseseed.entities.relationalModel.Project;
 import com.seed.databaseseed.entities.relationalModel.Shark;
 
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 @Component
 public class CsvProcessor {
-
+    private static final Logger logger = Logger.getLogger(CsvProcessor.class.getName());
     private static final List<PitchData> pitches = new ArrayList<>();
     public static List<PitchData> getPitches() {
         return pitches;
@@ -54,16 +56,15 @@ public class CsvProcessor {
             }
         }
         for (int i = 18; i < 31; i+=2) {
-            if (values[18] != null) investors.add(new Shark(1, "Barbara Corcoran"));
-            if (values[18]!= null)  investors.add(new Shark(2, "Mark Cuban"));
-            if (values[18]!= null)  investors.add(new Shark(3, "Lori Greiner"));
-            if (values[18]!= null)  investors.add(new Shark(4, "Robert Herjavec"));
-            if (values[18]!= null)  investors.add(new Shark(5, "Daymond John"));
-            if (values[18]!= null)  investors.add(new Shark(6, "Kevin O Leary"));
-            if (values[18]!= null)  investors.add(new Shark(7, "Kevin Harrington"));
-            if (values[18]!= null)  investors.add(new Shark(8, "Jeff Foxworthy"));
+            if (values[18] != "") investors.add(new Shark(1, "Barbara Corcoran"));
+            if (values[20]!= "")  investors.add(new Shark(2, "Mark Cuban"));
+            if (values[22]!= "")  investors.add(new Shark(3, "Lori Greiner"));
+            if (values[24]!= "")  investors.add(new Shark(4, "Robert Herjavec"));
+            if (values[26]!= "")  investors.add(new Shark(5, "Daymond John"));
+            if (values[28]!= "")  investors.add(new Shark(6, "Kevin O Leary"));
+            if (values[30]!= "" && values[32].equals("Kevin Harrington"))  investors.add(new Shark(7, "Kevin Harrington"));
+            if (values[30]!= "" && values[32].equals("Jeff Foxworthy"))  investors.add(new Shark(8, "Jeff Foxworthy"));
         }
-
         PitchData p = new PitchData(episode, season, picht, projectName, category, description, entrepeneurGender, entrepeneurs,
                                     website, valuation, deal, dealValue, percentageOfProject, numberOfSharksInDeal,
                                     percentageOfCompanyPerShark, investmentAmountPerShark, sharks, investors);
