@@ -49,6 +49,16 @@ public class Project {
     public Project() {
     }
 
+    public Project(Integer picht, String projectName, String website, String category, String description) {
+        this.id = id;
+        this.name = name;
+        this.website = website;
+        this.valuation = valuation;
+        this.category = category;
+        this.description = description;
+
+    }
+
     public Integer getId() {
         return id;
     }
