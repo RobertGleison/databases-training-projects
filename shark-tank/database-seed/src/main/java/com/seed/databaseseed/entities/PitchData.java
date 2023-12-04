@@ -1,21 +1,21 @@
 package com.seed.databaseseed.entities;
 
-import com.seed.databaseseed.entities.relationalModel.Entrepeneur;
+import com.seed.databaseseed.entities.relationalModel.Entrepreneur;
+import com.seed.databaseseed.entities.relationalModel.Project;
 import com.seed.databaseseed.entities.relationalModel.Shark;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
+//Store the information of each row in CSV file
 public class PitchData {
     private Integer episode;
     private Integer season;
-    private Integer picht;
+    private Integer pitch;
     private String projectName;
     private String category;
     private String description;
-    private String entrepeneurGender;
-    private List<Entrepeneur> entrepeneurNames;
+    private String entrepreneurGender;
     private String website;
     private Double valuation;
     private Boolean deal;
@@ -26,6 +26,8 @@ public class PitchData {
     private Double investmentAmountPerShark;
     private Set<Shark> sharks;
     private Set<Shark> investors;
+    private List<Entrepreneur> entrepreneurNames;
+    private Project project;
 
     public PitchData() {
     }
@@ -33,12 +35,12 @@ public class PitchData {
     //Use builder?
     public PitchData(Integer episode,
                      Integer season,
-                     Integer picht,
+                     Integer pitch,
                      String projectName,
                      String category,
                      String description,
-                     String entrepeneurGender,
-                     List<Entrepeneur> entrepeneurNames,
+                     String entrepreneurGender,
+                     List<Entrepreneur> entrepreneurNames,
                      String website,
                      Double valuation,
                      Boolean deal,
@@ -48,15 +50,16 @@ public class PitchData {
                      Double percentageOfCompanyPerShark,
                      Double investmentAmountPerShark,
                      Set<Shark> sharks,
-                     Set<Shark> investors) {
+                     Set<Shark> investors,
+                     Project project) {
         this.episode = episode;
         this.season = season;
-        this.picht = picht;
+        this.pitch = pitch;
         this.projectName = projectName;
         this.category = category;
         this.description = description;
-        this.entrepeneurGender = entrepeneurGender;
-        this.entrepeneurNames = entrepeneurNames;
+        this.entrepreneurGender = entrepreneurGender;
+        this.entrepreneurNames = entrepreneurNames;
         this.website = website;
         this.valuation = valuation;
         this.deal = deal;
@@ -67,160 +70,80 @@ public class PitchData {
         this.investmentAmountPerShark = investmentAmountPerShark;
         this.sharks = sharks;
         this.investors = investors;
+        this.project = project;
     }
 
     public Integer getEpisode() {
         return episode;
     }
 
-    public void setEpisode(Integer episode) {
-        this.episode = episode;
-    }
-
     public Integer getSeason() {
         return season;
     }
 
-    public void setSeason(Integer season) {
-        this.season = season;
-    }
-
-    public Integer getPicht() {
-        return picht;
-    }
-
-    public void setPicht(Integer picht) {
-        this.picht = picht;
+    public Integer getPitch() {
+        return pitch;
     }
 
     public String getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getEntrepreneurGender() {
+        return entrepreneurGender;
     }
 
-    public String getEntrepeneurGender() {
-        return entrepeneurGender;
-    }
-
-    public void setEntrepeneurGender(String entrepeneurGender) {
-        this.entrepeneurGender = entrepeneurGender;
-    }
-
-    public List<Entrepeneur> getEntrepeneurNames() {
-        return entrepeneurNames;
-    }
-
-    public void setEntrepeneurNames(List<Entrepeneur> entrepeneurNames) {
-        this.entrepeneurNames = entrepeneurNames;
+    public List<Entrepreneur> getEntrepreneurNames() {
+        return entrepreneurNames;
     }
 
     public String getWebsite() {
         return website;
     }
 
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
     public Double getValuation() {
         return valuation;
     }
 
-    public void setValuation(Double valuation) {
-        this.valuation = valuation;
-    }
-
     public Boolean getDeal() { return deal; }
-
-    public void setDeal(Boolean deal) {
-        this.deal = deal;
-    }
 
     public Double getDealValue() {
         return dealValue;
-    }
-
-    public void setDealValue(Double dealValue) {
-        this.dealValue = dealValue;
     }
 
     public Double getPercentageOfProject() {
         return percentageOfProject;
     }
 
-    public void setPercentageOfProject(Double percentageOfProject) {
-        this.percentageOfProject = percentageOfProject;
-    }
-
     public Integer getNumberOfSharksInDeal() {
         return numberOfSharksInDeal;
-    }
-
-    public void setNumberOfSharksInDeal(Integer numberOfSharksInDeal) {
-        this.numberOfSharksInDeal = numberOfSharksInDeal;
     }
 
     public Double getPercentageOfCompanyPerShark() {
         return percentageOfCompanyPerShark;
     }
 
-    public void setPercentageOfCompanyPerShark(Double percentageOfCompanyPerShark) {
-        this.percentageOfCompanyPerShark = percentageOfCompanyPerShark;
-    }
-
     public Double getInvestmentAmountPerShark() {
         return investmentAmountPerShark;
-    }
-
-    public void setInvestmentAmountPerShark(Double investmentAmountPerShark) {
-        this.investmentAmountPerShark = investmentAmountPerShark;
     }
 
     public Set<Shark> getInvestors() {
         return investors;
     }
 
-    public void setInvestors(Set<Shark> investors) {
-        this.investors = investors;
-    }
-
     public Set<Shark> getSharks() {
         return sharks;
     }
 
-    public void setSharks(Set<Shark> sharks) {
-        this.sharks = sharks;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PitchData pitchData = (PitchData) o;
-        return Objects.equals(getPicht(), pitchData.getPicht());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getPicht());
+    public Project getProject() {
+        return project;
     }
 }

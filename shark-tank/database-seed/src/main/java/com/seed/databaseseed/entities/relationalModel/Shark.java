@@ -2,12 +2,13 @@ package com.seed.databaseseed.entities.relationalModel;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
-public class Shark {
+public class Shark implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //I manually set the IDs
     @Column(name = "shark_id")
     private Integer id;
     @Column(name = "nome")
@@ -25,38 +26,6 @@ public class Shark {
     public Shark() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Episode> getEpisodes() {
-        return episodes;
-    }
-
-    public void setEpisodes(Set<Episode> episodes) {
-        this.episodes = episodes;
-    }
-
-    public List<Investment> getInvestments() {
-        return investments;
-    }
-
-    public void setInvestments(List<Investment> investments) {
-        this.investments = investments;
-    }
-
     public void addEpisode(Episode episode) {
         episodes.add(episode);
     }
@@ -70,11 +39,11 @@ public class Shark {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Shark shark = (Shark) o;
-        return Objects.equals(name, shark.name);
+        return Objects.equals(id, shark.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(id);
     }
 }

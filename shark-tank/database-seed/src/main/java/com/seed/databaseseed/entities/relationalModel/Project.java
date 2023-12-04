@@ -1,13 +1,15 @@
 package com.seed.databaseseed.entities.relationalModel;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
 @Table(name = "Projeto")
-public class Project {
+public class Project implements Serializable {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //I manually set the IDs
     @Column(name = "projeto_id")
     private Integer id;
     @Column(name = "nome")
@@ -23,7 +25,7 @@ public class Project {
     @JoinColumn(name = "numero_do_episodio")
     private Episode episode;
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Entrepeneur> entrepeneurs = new ArrayList<>();
+    private List<Entrepreneur> entrepreneurs = new ArrayList<>();
     @OneToMany(mappedBy = "id.project", cascade = CascadeType.ALL)
     private List<Investment> investments = new ArrayList<>();
 
@@ -59,69 +61,12 @@ public class Project {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public Double getValuation() {
-        return valuation;
-    }
-
-    public void setValuation(Double valuation) {
-        this.valuation = valuation;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Episode getEpisode() { return episode;
-    }
-
     public void setEpisode(Episode episode) { this.episode = episode; }
-
-    public List<Investment> getInvestments() { return investments; }
 
     public void setInvestments(List<Investment> investments) { this.investments = investments; }
 
-    public List<Entrepeneur> getEntrepeneurs() {
-        return entrepeneurs;
-    }
-
-    public void setEntrepeneurs(List<Entrepeneur> entrepeneurs) {
-        this.entrepeneurs = entrepeneurs;
+    public void setEntrepreneurs(List<Entrepreneur> entrepreneurs) {
+        this.entrepreneurs = entrepreneurs;
     }
 
     @Override

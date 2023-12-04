@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "Investimento")
@@ -15,45 +14,26 @@ public class Investment implements Serializable {
     @EmbeddedId
     private SharkProjectPK id = new SharkProjectPK();
     @Column(name = "valor_do_investimento")
-    private Double valorDoInvestimento;
+    private Double investmentValue;
     @Column(name = "porcentagem_vendida_do_projeto")
-    private Double porcentagemVendidaDoProjeto;
+    private Double projectPercentageAcquired;
 
     public Investment() {
     }
 
-    public Investment(Shark shark, Project project, Double valorDoInvestimento, Double porcentagemVendidaDoProjeto) {
+    public Investment(Shark shark, Project project, Double investmentValue, Double projectPercentageAcquired) {
         id.setProject(project);
         id.setShark(shark);
-        this.valorDoInvestimento = valorDoInvestimento;
-        this.porcentagemVendidaDoProjeto = porcentagemVendidaDoProjeto;
+        this.investmentValue = investmentValue;
+        this.projectPercentageAcquired = projectPercentageAcquired;
     }
 
     public Shark getShark(){ return id.getShark(); }
 
     public Project getProject(){ return id.getProject(); }
 
-    public Double getValorDoInvestimento() {
-        return valorDoInvestimento;
-    }
-
-    public void setValorDoInvestimento(Double valorDoInvestimento) {
-        this.valorDoInvestimento = valorDoInvestimento;
-    }
-
-    public Double getPorcentagemVendidaDoProjeto() {
-        return porcentagemVendidaDoProjeto;
-    }
-
-    public void setPorcentagemVendidaDoProjeto(Double porcentagemVendidaDoProjeto) {
-        this.porcentagemVendidaDoProjeto = porcentagemVendidaDoProjeto;
-    }
     public void setProject(Project project){
         id.setProject(project);
-    }
-
-    public void setShark(Shark shark){
-        id.setShark(shark);
     }
 
     @Override
@@ -61,20 +41,11 @@ public class Investment implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Investment that = (Investment) o;
-        return Objects.equals(getValorDoInvestimento(), that.getValorDoInvestimento());
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getValorDoInvestimento());
-    }
-
-    @Override
-    public String toString() {
-        return "Investimento{" +
-                "id=" + id +
-                ", valorDoInvestimento=" + valorDoInvestimento +
-                ", porcentagemVendidaDoProjeto=" + porcentagemVendidaDoProjeto +
-                '}';
+        return Objects.hash(id);
     }
 }

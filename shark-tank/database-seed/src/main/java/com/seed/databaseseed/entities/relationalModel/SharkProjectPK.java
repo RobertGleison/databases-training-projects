@@ -4,7 +4,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -36,6 +35,7 @@ public class SharkProjectPK implements Serializable {
         SharkProjectPK that = (SharkProjectPK) o;
         return Objects.equals(getShark(), that.getShark()) && Objects.equals(getProject(), that.getProject());
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(getShark(), getProject());
