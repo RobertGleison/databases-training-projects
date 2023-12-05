@@ -20,4 +20,4 @@ In this project, I used the following technologies:
 
 ## Relational Model
 
-![Relational Model](src/main/resources/Screenshot from 2023-12-05 00-05-27.png)
+![Relational Model](relationalDB.png)
