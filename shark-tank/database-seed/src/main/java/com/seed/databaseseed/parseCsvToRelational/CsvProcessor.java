@@ -54,7 +54,7 @@ public class CsvProcessor {
     private static List<Entrepreneur> createEntrepreneurs(List<String> names, String gender, Project project) {
         List<Entrepreneur> entrepreneurs = new ArrayList<>();
         for(int i = 0; i < names.size(); i++) {
-            entrepreneurs.add(parseEntrepreneur(names.get(i), gender, project));
+            entrepreneurs.add(parseEntrepreneur(names.get(i).trim(), gender, project));
         }
         return entrepreneurs;
     }

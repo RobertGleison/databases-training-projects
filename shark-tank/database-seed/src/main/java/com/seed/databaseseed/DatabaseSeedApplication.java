@@ -51,8 +51,6 @@ public class DatabaseSeedApplication  implements CommandLineRunner {
             throw new RuntimeException(e);
         }
         service.managePitch();
-//        service.insertInvestments();
-
     }
 }
 

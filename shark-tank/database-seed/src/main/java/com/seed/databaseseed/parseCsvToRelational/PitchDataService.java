@@ -46,21 +46,24 @@ public class PitchDataService {
             project = setEpisodeToProject(p.getProject(), episode);
             entrepreneurs = setProjectToEntrepreneur(project, p.getEntrepreneurNames());
 
-            List<Investment> investments = new ArrayList<>();
-            for (Shark shark : p.getInvestors()) {
-                Investment investment = new Investment(shark, project, p.getInvestmentAmountPerShark(), p.getPercentageOfCompanyPerShark());
-                investments.add(investment);
-                shark.addInvestment(investment);
-            }
             episodeRepository.save(episode);
             sharkRepository.saveAll(sharks);
             entrepeneurRepository.saveAll(entrepreneurs);
-            project.setInvestments(investments);
+            List<Investment> investments = insertInvestment(project, p.getInvestors(), p.getInvestmentAmountPerShark(), p.getInvestmentAmountPerShark());
             projectRepository.save(project);
             investmentRepository.saveAll(investments);
-
-            System.out.print("Persisted");
         }
+    }
+
+    private List<Investment> insertInvestment(Project project, Set<Shark> investors, Double investmentAmountPerShark, Double percentageOfCompanyPerShark) {
+        List<Investment> investments = new ArrayList<>();
+        for (Shark s : investors) {
+            Investment investment = new Investment(s, project, investmentAmountPerShark, percentageOfCompanyPerShark);
+            investments.add(investment);
+            s.addInvestment(investment);
+        }
+        project.setInvestments(investments);
+        return investments;
     }
 
     private Episode setEpisodeToShark(Integer season, Integer number, Set<Shark> sharks) {
@@ -80,16 +83,5 @@ public class PitchDataService {
         project.setEntrepreneurs(entrepreneurs);
         for (Entrepreneur e : entrepreneurs) e.setProject(project);
         return entrepreneurs;
-    }
-
-    private List<Investment> insertInvestment(Project project, Set<Shark> investors, Double investmentAmountPerShark, Double percentageOfCompanyPerShark, Set<Shark> sharks) {
-        List<Investment> investments = new ArrayList<>();
-        for (Shark s : investors) {
-            Investment investment = new Investment(s, project, investmentAmountPerShark, percentageOfCompanyPerShark);
-            investments.add(investment);
-            s.addInvestment(investment);
-        }
-        project.setInvestments(investments);
-        return investments;
     }
 }
