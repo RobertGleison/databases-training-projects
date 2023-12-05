@@ -20,4 +20,4 @@ In this project, I used the following technologies:
 
 ## Relational Model
 
-![Relational Model](relationalDB.png)
+![Relational Model](/relationalDB.png)
